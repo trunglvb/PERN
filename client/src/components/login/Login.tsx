@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import bannerLogin from '@/assets/jpg/banner-login.jpg';
+import googleIcon from '@/assets/svg/google.svg';
+import facebookIcon from '../../assets/svg/facebook.svg';
 import FormInput from '@/components/forms/input';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
@@ -8,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Separator } from '@/components/ui/separator';
 import { z as zod } from 'zod';
+import { useGoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const [isLoginMode, setIsLoginMode] = useState<boolean>(true);
@@ -27,9 +30,15 @@ const Login = () => {
   const onSubmit = handleSubmit((data) => {
     console.log(data);
   });
+
   const tongleVarient = () => {
     setIsLoginMode(!isLoginMode);
   };
+
+  const handleLoginGoogle = useGoogleLogin({
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    onError: (error) => console.log(error)
+  });
 
   return (
     <div className='grid grid-cols-10'>
@@ -62,8 +71,17 @@ const Login = () => {
           <span className='mx-2 text-sm text-gray-500 '>Hoặc</span>
           <Separator className='w-auto flex-grow border-gray-300' />
         </div>
-        <div className='mt-6'></div>
-        <div className='mt-4 flex items-center justify-center gap-1 text-sm'>
+        <div className='mt-6 flex flex-col gap-2'>
+          <Button className='flex w-full gap-2' variant='outline' onClick={() => handleLoginGoogle()}>
+            <img src={googleIcon} alt='' className='h-5 w-5 object-contain' />
+            <span>Đăng nhập bằng Google</span>
+          </Button>
+          <Button className='flex w-full gap-2' variant='outline'>
+            <img src={facebookIcon} alt='' className='h-5 w-5 object-contain' />
+            <span>Đăng nhập bằng Facebook</span>
+          </Button>
+        </div>
+        <div className='mt-6 flex items-center justify-center gap-1 text-sm'>
           <div>{isLoginMode ? 'Bạn chưa là thành viên?' : 'Bạn đã là thành viên?'}</div>
           <div>
             <span className='cursor-pointer font-bold text-red-600 hover:underline' onClick={tongleVarient}>

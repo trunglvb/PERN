@@ -23,6 +23,7 @@ import {
 import Login from '@/components/login';
 
 const Header = () => {
+  console.log(import.meta.env.GOOGLE_AUTH_ID);
   return (
     <div className='flex h-24 items-center justify-between p-4 shadow'>
       <div className='flex items-center gap-4'>
@@ -68,7 +69,7 @@ const Header = () => {
               Đăng nhập / Đăng ký
             </Button>
           </DialogTrigger>
-          <DialogContent className='min-w-[700px] p-0'>
+          <DialogContent className='min-w-[800px] p-0'>
             <DialogHeader>
               <DialogTitle />
               <DialogDescription />
