@@ -1,0 +1,1 @@
+Postgres, TypeScript, Node, React
