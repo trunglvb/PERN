@@ -1,0 +1,5 @@
+const path = require('path');
+
+const config = path.resolve('configs', 'sequelize.config.js');
+
+module.export = { config };
