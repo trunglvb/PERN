@@ -1,7 +1,6 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+//bang nay de chia goi kim cuong, vang , bac ( che do gia ca)
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Pricing extends Model {
     /**
@@ -13,13 +12,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Pricing.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Pricing',
-  });
+  Pricing.init(
+    {
+      name: DataTypes.STRING, // ten cua goi (vang , bac, kim cuong)
+      isDisplayImmedialy: DataTypes.BOOLEAN, // exp: tin thuong khong the  hien thi ngay
+      isShowDescription: DataTypes.BOOLEAN, // exp: tin thuong khong hien thi mo ta
+      priority: DataTypes.INTEGER, // muc do uu tien
+      requireScore: DataTypes.INTEGER, // diem ma tai khoan can de len level do
+      requireScoreNextLevel: DataTypes.INTEGER, // diem ma tai khoan can de len level tiep theo
+      price: DataTypes.BIGINT, // gia de nang cap level nay
+      expiredDay: DataTypes.INTEGER, // thoi gian het han cua bai dang theo goi,
+      imageUrl: DataTypes.STRING // anh dai dien cho goi
+    },
+    {
+      sequelize,
+      modelName: 'Pricing'
+    }
+  );
   return Pricing;
 };

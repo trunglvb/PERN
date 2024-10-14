@@ -9,14 +9,52 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING
-      },
-      lastName: {
-        type: Sequelize.STRING
+      fullname: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       email: {
         type: Sequelize.STRING
+      },
+      phone: {
+        type: Sequelize.STRING
+      },
+      emailVerified: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      phoneVerified: {
+        type: Sequelize.STRING,
+        defaultValue: false
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      avatar: {
+        type: Sequelize.STRING
+      },
+      balance: {
+        type: Sequelize.BIGINT,
+        defaultValue: 0
+      },
+      score: {
+        type: Sequelize.STRING,
+        defaultValue: 0
+      },
+      resetPwdToken: {
+        type: Sequelize.STRING
+      },
+      resetPwdExpire: {
+        type: Sequelize.DATE
+      },
+      idPricing: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Pricings',
+          key: 'id' // idPricing cua bang user lien ket voi id cua bang pricing
+        }
       },
       createdAt: {
         allowNull: false,

@@ -1,4 +1,7 @@
 'use strict';
+
+const { EnumPricing } = require('../utils/constants');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -9,13 +12,30 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING
+      name: {
+        type: Sequelize.ENUM,
+        values: EnumPricing,
+        defaultValue: EnumPricing[0]
       },
-      lastName: {
-        type: Sequelize.STRING
+      isDisplayImmedialy: {
+        type: Sequelize.BOOLEAN
       },
-      email: {
+      isShowDescription: {
+        type: Sequelize.BOOLEAN
+      },
+      priority: {
+        type: Sequelize.INTEGER
+      },
+      requireScore: {
+        type: Sequelize.BIGINT
+      },
+      price: {
+        type: Sequelize.INTEGER
+      },
+      expiredDay: {
+        type: Sequelize.INTEGER
+      },
+      imageUrl: {
         type: Sequelize.STRING
       },
       createdAt: {

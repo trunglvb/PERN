@@ -1,5 +1,7 @@
 'use strict';
 
+//model la noi define de xu ly o phia code, can phai define trong migrations de lam viec voi database
+
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
