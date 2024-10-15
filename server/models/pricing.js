@@ -1,6 +1,7 @@
 'use strict';
 //bang nay de chia goi kim cuong, vang , bac ( che do gia ca)
 const { Model } = require('sequelize');
+const { EnumPricing } = require('../utils/constants');
 module.exports = (sequelize, DataTypes) => {
   class Pricing extends Model {
     /**
@@ -14,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Pricing.init(
     {
-      name: DataTypes.STRING, // ten cua goi (vang , bac, kim cuong)
+      name: {
+        type: DataTypes.ENUM,
+        values: EnumPricing
+      }, // ten cua goi (vang , bac, kim cuong)
       isDisplayImmedialy: DataTypes.BOOLEAN, // exp: tin thuong khong the  hien thi ngay
       isShowDescription: DataTypes.BOOLEAN, // exp: tin thuong khong hien thi mo ta
       priority: DataTypes.INTEGER, // muc do uu tien

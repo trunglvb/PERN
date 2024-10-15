@@ -29,6 +29,9 @@ module.exports = {
       requireScore: {
         type: Sequelize.BIGINT
       },
+      requireScoreNextLevel: {
+        type: Sequelize.BIGINT
+      },
       price: {
         type: Sequelize.INTEGER
       },

@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+const { EnumListingType, EnumPropertyTypes, EnumDirection, EnumPostStatus } = require('../utils/constants');
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     /**
@@ -19,23 +20,39 @@ module.exports = (sequelize, DataTypes) => {
       province: DataTypes.STRING,
       district: DataTypes.STRING,
       ward: DataTypes.STRING, // phường
-      avgStar: DataTypes.INTEGER,
+      avgScore: DataTypes.FLOAT, //danh gia diem so
       price: DataTypes.BIGINT,
-      size: DataTypes.STRING,
-      description: DataTypes.STRING,
-      floor: DataTypes.INTEGER,
+      priceUnit: DataTypes.BIGINT, // gia tren 1m2
+      size: DataTypes.INTEGER,
+      description: DataTypes.TEXT,
+      floor: DataTypes.INTEGER, //so tang
       bedroom: DataTypes.INTEGER,
       bathroom: DataTypes.INTEGER,
-      isFurniture: DataTypes.BOOLEAN
-      // listingType: DataTypes,
-      // propertyType: DataTypes,
-      // direction: DataTypes,
-      // balconyDirection: DataTypes,
-      // verified: DataTypes,
-      // expiredDate: DataTypes,
-      // expiredBoost: DataTypes,
-      // status: DataTypes,
-      // idUser: DataTypes
+      isFurniture: DataTypes.BOOLEAN, // nội thất
+      listingType: {
+        type: DataTypes.ENUM,
+        values: EnumListingType
+      }, // bán hoặc cho thuê
+      propertyType: {
+        type: DataTypes.ENUM,
+        values: EnumPropertyTypes
+      },
+      direction: {
+        type: DataTypes.ENUM,
+        values: EnumDirection
+      },
+      balconyDirection: {
+        type: DataTypes.ENUM,
+        values: EnumDirection
+      }, // huong ban cong
+      verified: DataTypes.BOOLEAN, // thong tin chinh xac hay chua
+      expiredDate: DataTypes.DATE, // ngay het han cua tin
+      expiredBoost: DataTypes.DATE, // ngày hết hạn đẩy tin
+      status: {
+        type: DataTypes.ENUM,
+        values: EnumPostStatus
+      },
+      idUser: DataTypes.INTEGER
     },
     {
       sequelize,

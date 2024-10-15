@@ -9,14 +9,28 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING
+      idPost: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Posts',
+          key: 'id'
+        }
       },
-      lastName: {
-        type: Sequelize.STRING
+      idUser: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
       },
-      email: {
-        type: Sequelize.STRING
+      content: {
+        type: Sequelize.TEXT,
+        allowNull: false
+      },
+      idParent: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
