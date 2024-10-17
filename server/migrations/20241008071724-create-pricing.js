@@ -1,6 +1,6 @@
 'use strict';
 
-const { EnumPricing } = require('../utils/constants');
+const { EnumPricing } = require('@utils/constants');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

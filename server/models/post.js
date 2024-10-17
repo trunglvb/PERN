@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-const { EnumListingType, EnumPropertyTypes, EnumDirection, EnumPostStatus } = require('../utils/constants');
+const { EnumListingType, EnumPropertyTypes, EnumDirection, EnumPostStatus } = require('@utils/constants');
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     /**

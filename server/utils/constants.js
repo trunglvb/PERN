@@ -17,4 +17,4 @@ const EnumPropertyTypes = [
 const EnumListingType = ['Bán', 'Cho thuê'];
 const EnumDirection = ['Đông - Bắc', 'Tây - Nam', 'Đông - Nam', 'Tây - Bắc', 'Đông', 'Tây', 'Nam', 'Bắc'];
 
-export { EnumPricing, EnumPostStatus, EnumPropertyTypes, EnumListingType, EnumDirection };
+module.exports = { EnumPricing, EnumPostStatus, EnumPropertyTypes, EnumListingType, EnumDirection };

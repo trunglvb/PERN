@@ -1,5 +1,5 @@
-import { config as configEnv } from 'dotenv';
-configEnv();
+const dotenv = require('dotenv');
+dotenv.config();
 
 const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_DIALECT } = process.env;
 const development = {
@@ -28,4 +28,7 @@ const production = {
   }
 };
 
-export { development, production };
+module.exports = {
+  development: development,
+  production: production
+};

@@ -1,7 +1,7 @@
-import { Sequelize } from 'sequelize';
-import { config as configEnv } from 'dotenv';
+const { Sequelize } = require('sequelize');
+const { config } = require('dotenv');
 
-configEnv();
+config();
 
 // Option 3: Passing parameters separately (other dialects)
 const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_DIALECT } = process.env;
@@ -21,4 +21,4 @@ const connectionDatabase = async () => {
   }
 };
 
-export { connectionDatabase };
+module.exports = { connectionDatabase };

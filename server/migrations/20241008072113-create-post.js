@@ -1,6 +1,6 @@
 'use strict';
 
-const { EnumListingType, EnumPropertyTypes, EnumDirection, EnumPostStatus } = require('../utils/constants');
+const { EnumListingType, EnumPropertyTypes, EnumDirection, EnumPostStatus } = require('@utils/constants');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

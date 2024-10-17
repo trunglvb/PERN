@@ -1,5 +1,3 @@
 const path = require('path');
 
-const config = path.resolve('configs', 'sequelize.config.js');
-
-module.export = { config };
+module.exports = { config: path.resolve('configs', 'sequelize.config.js') };

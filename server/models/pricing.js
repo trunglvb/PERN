@@ -1,7 +1,7 @@
 'use strict';
 //bang nay de chia goi kim cuong, vang , bac ( che do gia ca)
 const { Model } = require('sequelize');
-const { EnumPricing } = require('../utils/constants');
+const { EnumPricing } = require('@utils/constants');
 module.exports = (sequelize, DataTypes) => {
   class Pricing extends Model {
     /**
