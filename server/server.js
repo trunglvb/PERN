@@ -5,6 +5,7 @@ const { connectionDatabase } = require('@configs/dbconnect.js');
 const app = express();
 require('module-alias/register');
 const initRouter = require('@routes/index.js');
+connectionDatabase();
 
 dotenv.config();
 const port = process.env.PORT || 8888;
@@ -24,5 +25,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
-connectionDatabase();
