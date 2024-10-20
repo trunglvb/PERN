@@ -1,1 +1,1 @@
-Postgres, TypeScript, Node, React
+Postgres, Express, Node, React
