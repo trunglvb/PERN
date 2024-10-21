@@ -1,11 +1,16 @@
 const { HttpStatusCode } = require('@utils/httpStatusCode');
+const { omit } = require('lodash');
 
 const defaultError = (err, req, res, next) => {
+  console.log(err);
   const statusCode = req.statusCode || HttpStatusCode.InternalServerError;
-  const message = err?.message;
+
+  Object.getOwnPropertyNames(err).forEach((key) => {
+    Object.defineProperty(err, key, { enumerable: true });
+  });
   return res.status(statusCode).json({
-    success: false,
-    message
+    message: 'Lỗi',
+    data: omit(err, ['stack'])
   });
 };
 

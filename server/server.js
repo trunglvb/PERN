@@ -7,6 +7,18 @@ require('module-alias/register');
 const initRouter = require('@routes/index.js');
 connectionDatabase();
 
+const moduleAlias = require('module-alias');
+moduleAlias.addAliases({
+  '@utils': `${__dirname}/utils`,
+  '@controllers': `${__dirname}/controllers`,
+  '@models': `${__dirname}/models`,
+  '@middlewares': `${__dirname}/middlewares`,
+  '@routes': `${__dirname}/routes`,
+  '@migrations': `${__dirname}/migrations`,
+  '@seeders': `${__dirname}/seeders`,
+  '@configs': `${__dirname}/configs`
+});
+
 dotenv.config();
 const port = process.env.PORT || 8888;
 app.use(cors({ origin: process.env.CLIENT_URL, methods: ['POST', 'PUT', 'DELETE', 'GET'] }));

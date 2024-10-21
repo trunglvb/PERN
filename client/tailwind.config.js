@@ -23,10 +23,10 @@ module.exports = {
           foreground: 'hsl(var(--primary-foreground))'
         },
         secondary: {
-          DEFAULT: 'f1f3f4',
+          DEFAULT: '#f1f3f4',
           foreground: 'hsl(var(--secondary-foreground))'
         },
-        main: '#005163',
+        main: '#6b21a8',
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))'
@@ -49,8 +49,8 @@ module.exports = {
         }
       },
       backgroundColor: {
-        main: '#005163',
-        primary: '#f1f3f4'
+        main: '#6b21a8',
+        primary: '#f1f3f1'
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -74,4 +74,4 @@ module.exports = {
     }
   },
   plugins: [require('tailwindcss-animate')]
-}
+};
