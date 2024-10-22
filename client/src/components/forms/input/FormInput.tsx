@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from 'react';
 import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
-import PasswordInput from '@/components/passwordInput/PasswordInput';
+import PasswordInput from '@/components/forms/passwordInput/PasswordInput';
 
 interface IFormInputProps<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   formControl: UseFormReturn<T>;

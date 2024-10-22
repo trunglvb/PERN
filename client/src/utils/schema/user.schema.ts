@@ -24,6 +24,7 @@ const loginSchema = zod.object({
 const registerSchema = zod
   .object({
     ...baseSchema,
+    fullname: zod.string().min(1, { message: 'Trường này là bắt buộc' }),
     confirmPassword: zod.string().min(6, { message: 'Mật khẩu cần tối thiểu 6 ký tự' })
   })
   .refine((data) => data.password === data.confirmPassword, {

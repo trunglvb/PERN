@@ -20,7 +20,7 @@ import {
   DialogTrigger,
   DialogDescription
 } from '@/components/ui/dialog';
-import Login from '@/components/login';
+import Login from '@/components/auth/login';
 
 const Header = () => {
   console.log(import.meta.env.GOOGLE_AUTH_ID);

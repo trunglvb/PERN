@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import bannerLogin from '@/assets/jpg/banner-login.jpg';
 import googleIcon from '@/assets/svg/google.svg';
-import facebookIcon from '../../assets/svg/facebook.svg';
+import facebookIcon from '@/assets/svg/facebook.svg';
 import FormInput from '@/components/forms/input';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
@@ -11,6 +11,10 @@ import { useForm } from 'react-hook-form';
 import { Separator } from '@/components/ui/separator';
 import { z as zod } from 'zod';
 import { useGoogleLogin } from '@react-oauth/google';
+import { axiosExternalInstance } from '@/utils/external';
+import HttpStatusCode from '@/constants/httpStatusCode.enum';
+import { checkAlreadyUserByEmail } from '@/apis/auth.api';
+import { IUserResponseFromGoogle } from '@/types/auth.type';
 
 const Login = () => {
   const [isLoginMode, setIsLoginMode] = useState<boolean>(true);
@@ -21,11 +25,12 @@ const Login = () => {
     resolver: zodResolver(userSchema),
     defaultValues: {
       emailOrPhone: '',
+      fullname: '',
       password: '',
       confirmPassword: ''
     }
   });
-  const { handleSubmit, setError, formState } = form;
+  const { handleSubmit, setError, formState, reset } = form;
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
@@ -33,10 +38,19 @@ const Login = () => {
 
   const tongleVarient = () => {
     setIsLoginMode(!isLoginMode);
+    reset();
   };
 
   const handleLoginGoogle = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    onSuccess: async (tokenResponse) => {
+      const res = await axiosExternalInstance(tokenResponse?.access_token);
+      const data = res.data as IUserResponseFromGoogle;
+
+      if (res.status === HttpStatusCode.Ok) {
+        const alreadyUser = await checkAlreadyUserByEmail('trung123@gmail.com');
+        console.log('alreadyUser', alreadyUser);
+      }
+    },
     onError: (error) => console.log(error)
   });
 
@@ -50,19 +64,24 @@ const Login = () => {
         <div className='mb-5 text-2xl font-bold'>{isLoginMode ? 'Đăng nhập để tiếp tục' : 'Đăng kí tài khoản'}</div>
         <Form {...form}>
           <form onSubmit={onSubmit} className='flex flex-col gap-3'>
-            <FormInput formControl={form} name='emailOrPhone' placeholder='SĐT chính hoặc email' />
-            <FormInput formControl={form} name='password' placeholder='Mật khẩu' type='password' />
-            {!isLoginMode && (
-              <FormInput formControl={form} name='confirmPassword' placeholder='Nhập lại mật khẩu' type='password' />
-            )}
             {isLoginMode ? (
-              <Button type='submit' className='mt-4 w-full'>
-                Đăng nhập
-              </Button>
+              <>
+                <FormInput formControl={form} name='emailOrPhone' placeholder='SĐT chính hoặc email' />
+                <FormInput formControl={form} name='password' placeholder='Mật khẩu' type='password' />
+                <Button type='submit' className='mt-4 w-full'>
+                  Đăng nhập
+                </Button>
+              </>
             ) : (
-              <Button type='submit' className='mt-4 w-full'>
-                Đăng kí
-              </Button>
+              <>
+                <FormInput formControl={form} name='emailOrPhone' placeholder='SĐT chính hoặc email' />
+                <FormInput formControl={form} name='fullname' placeholder='Tên đầy đủ' />
+                <FormInput formControl={form} name='password' placeholder='Mật khẩu' type='password' />
+                <FormInput formControl={form} name='confirmPassword' placeholder='Nhập lại mật khẩu' type='password' />
+                <Button type='submit' className='mt-4 w-full'>
+                  Đăng kí
+                </Button>
+              </>
             )}
           </form>
         </Form>
@@ -84,7 +103,11 @@ const Login = () => {
         <div className='mt-6 flex items-center justify-center gap-1 text-sm'>
           <div>{isLoginMode ? 'Bạn chưa là thành viên?' : 'Bạn đã là thành viên?'}</div>
           <div>
-            <span className='cursor-pointer font-bold text-red-600 hover:underline' onClick={tongleVarient}>
+            <span
+              className='cursor-pointer font-bold text-red-600 hover:underline'
+              role='presentation'
+              onClick={tongleVarient}
+            >
               {isLoginMode ? 'Đăng kí ' : 'Đăng nhập '}
             </span>
             <span>tại đây</span>

@@ -1,31 +1,24 @@
 const asyncHandler = require('express-async-handler');
-const db = require('@models');
-const bcrypt = require('bcryptjs');
-const { signToken } = require('@utils/jwt');
-
-const hashPassword = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+const authService = require('@services/auth.services');
+const { HttpStatusCode } = require('@utils/httpStatusCode');
 
 module.exports = {
   loginWithGoogle: asyncHandler(async (req, res, _next) => {
-    const { email, fullname, avatar, password } = req.body;
-    const user = await db.User.findOne({ where: { email: email } });
-    let userId = '';
+    const { body } = req;
+    const result = await authService.loginWithGoogle(body);
 
-    if (!user) {
-      const newUser = await db.User.create({ email, fullname, avatar, password: hashPassword(password) });
-      if (!newUser) throw new Error('Lỗi tạo mới User');
-      userId = newUser.dataValues.id;
-    } else {
-      userId = user.id;
-    }
-
-    const token = await signToken(userId.toString());
-
-    return res.json({
+    return res.status(HttpStatusCode.Ok).json({
       message: 'Login successful',
-      data: {
-        accessToken: token
-      }
+      data: result
+    });
+  }),
+  checkAlreadyUser: asyncHandler(async (req, res, _next) => {
+    const { email } = req.query;
+    const result = await authService.checkAlreadyUser(email);
+
+    return res.status(HttpStatusCode.Ok).json({
+      message: 'Checked already user',
+      data: result
     });
   })
 };

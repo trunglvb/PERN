@@ -21,7 +21,7 @@ moduleAlias.addAliases({
 
 dotenv.config();
 const port = process.env.PORT || 8888;
-app.use(cors({ origin: process.env.CLIENT_URL, methods: ['POST', 'PUT', 'DELETE', 'GET'] }));
+app.use(cors({ origin: process.env.CLIENT_URL, methods: ['POST', 'PUT', 'DELETE', 'GET'], credentials: true }));
 app.use(express.json({ limit: '5mb' }));
 
 //for formData

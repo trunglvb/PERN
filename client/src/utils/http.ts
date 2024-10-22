@@ -1,7 +1,7 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios';
-import HttpStatusCode from 'src/constants/httpStatusCode.enum';
+import HttpStatusCode from '@/constants/httpStatusCode.enum';
 import config from './config';
-import { URL_AUTH } from 'src/apis/auth.api';
+import { URL_AUTH } from '@/apis/auth.api';
 import {
   isAxiosExpiredTokenError,
   isAxiosUnauthorizedError,

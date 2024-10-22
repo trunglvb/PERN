@@ -38,6 +38,7 @@
     "@routes": "./routes",
     "@migrations": "./migrations",
     "@seeders": "./seeders",
-    "@configs": "./configs"
+    "@configs": "./configs",
+    "@services": "./services"
   }
 }

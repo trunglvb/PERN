@@ -1,5 +1,5 @@
 const { HttpStatusCode } = require('@utils/httpStatusCode');
-const { omit } = require('lodash');
+const { pick } = require('lodash');
 
 const defaultError = (err, req, res, next) => {
   console.log(err);
@@ -10,7 +10,7 @@ const defaultError = (err, req, res, next) => {
   });
   return res.status(statusCode).json({
     message: 'Lỗi',
-    data: omit(err, ['stack'])
+    data: pick(err, ['message', 'name'])
   });
 };
 
