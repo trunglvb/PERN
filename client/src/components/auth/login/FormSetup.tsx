@@ -6,12 +6,27 @@ import FormInput from '@/components/forms/input';
 import { Button } from '@/components/ui/button';
 import { IUserResponseFromGoogle } from '@/types/auth.type';
 import { loginWithGoole } from '@/apis/auth.api';
+import {
+  saveAccessTokenToLocalStorage,
+  saveProfileToLocalStorage,
+  saveRefreshTokenToLocalStorage
+} from '@/utils/utils';
+import useUserStore from '@/zustand/useUserStore';
+import { toast } from 'sonner';
 
 interface IFormSetupProps {
-  userInfo?: IUserResponseFromGoogle;
+  userInfo: IUserResponseFromGoogle;
+  handleGoolgeLoginAfterCheckEmail: (payload: {
+    email: string;
+    avatar: string;
+    fullname: string;
+    password: string;
+  }) => Promise<void>;
 }
+
 const FormSetup = (props: IFormSetupProps) => {
-  const { userInfo } = props;
+  const { userInfo, handleGoolgeLoginAfterCheckEmail } = props;
+  const { setIsAuthenticated } = useUserStore();
   const form = useForm<ISetupPasswordSchemaType>({
     resolver: zodResolver(setupPasswordSchema),
     defaultValues: {
@@ -23,13 +38,12 @@ const FormSetup = (props: IFormSetupProps) => {
   const { handleSubmit, setError } = form;
 
   const onSubmit = handleSubmit(async (data) => {
-    const response = await loginWithGoole({
-      email: userInfo?.email!,
-      avatar: userInfo?.picture!,
-      fullname: userInfo?.name!,
-      password: data?.password
+    await handleGoolgeLoginAfterCheckEmail({
+      email: userInfo.email,
+      avatar: userInfo.picture,
+      fullname: userInfo.name,
+      password: data.password
     });
-    console.log('response', response);
   });
 
   return (

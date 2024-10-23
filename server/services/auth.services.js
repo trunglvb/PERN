@@ -7,8 +7,8 @@ dotenv.config();
 const hashPassword = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
 const loginWithGoogle = async (body) => {
-  const { email, fullname = '', avatar, password } = body;
-  let user = await db.User.findOne({ where: { email: email } });
+  const { email, fullname, avatar, password } = body;
+  let user = await db.User.findOne({ where: { email: email }, attributes: { exclude: ['password', 'idPricing'] } });
   let userId = '';
 
   if (!user) {

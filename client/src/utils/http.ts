@@ -13,6 +13,7 @@ import {
   getRefreshTokenFromLocalStorage
 } from './utils';
 import { IErrorResponseApi } from 'src/types/utils.type';
+import { IAuthResponse } from '@/types/auth.type';
 
 class Http {
   instance: AxiosInstance;
@@ -46,12 +47,10 @@ class Http {
     );
     this.instance.interceptors.response.use(
       (response) => {
-        console.log('response', response);
         const { url } = response.config; //goi lai api login neu loi token, path cua api
-        console.log('url', url);
         if (url === URL_AUTH.LOGIN || url === URL_AUTH.REGISTER) {
-          this.accessToken = (response.data as any).data.access_token;
-          this.refreshToken = (response.data as any).data.refresh_token;
+          this.accessToken = (response.data as IAuthResponse).data.access_token;
+          this.refreshToken = (response.data as IAuthResponse).data.refresh_token;
           saveAccessTokenToLocalStorage(this.accessToken);
           saveRefreshTokenToLocalStorage(this.refreshToken);
           saveProfileToLocalStorage(response.data.data.user);

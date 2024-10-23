@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,8 +9,6 @@ import {
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu';
 import navigations from '@/constants/navitagion';
-import path from '@/constants/path';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -21,16 +19,20 @@ import {
   DialogDescription
 } from '@/components/ui/dialog';
 import Login from '@/components/auth/login';
+import Logo from './Logo';
+import useUserStore from '@/zustand/useUserStore';
 
 const Header = () => {
-  console.log(import.meta.env.GOOGLE_AUTH_ID);
+  const [isShowDialog, setIsShowDialog] = useState<boolean>(false);
+  const { isAuthenticated } = useUserStore();
+
+  const handleCloseDialog = () => {
+    setIsShowDialog(false);
+  };
   return (
     <div className='flex h-24 items-center justify-between p-4 shadow'>
       <div className='flex items-center gap-4'>
-        <Link to={path.publics.home} className='text-shadow text-5xl font-bold tracking-wider text-main'>
-          BDSVN
-        </Link>
-
+        <Logo />
         <NavigationMenu>
           <NavigationMenuList>
             {navigations.map((el) => (
@@ -59,29 +61,34 @@ const Header = () => {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-      <div className='flex items-center gap-3'>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button
-              className='border-none bg-transparent text-stone-900 hover:bg-transparent hover:underline'
-              size='lg'
-            >
-              Đăng nhập / Đăng ký
-            </Button>
-          </DialogTrigger>
-          <DialogContent className='min-w-[800px] p-0'>
-            <DialogHeader>
-              <DialogTitle />
-              <DialogDescription />
-            </DialogHeader>
-            <Login />
-          </DialogContent>
-        </Dialog>
+      {isAuthenticated ? (
+        <div>DNTC</div>
+      ) : (
+        <div className='flex items-center gap-3'>
+          <Dialog onOpenChange={setIsShowDialog} open={isShowDialog}>
+            <DialogTrigger asChild>
+              <Button
+                className='border-none bg-transparent text-stone-900 hover:bg-transparent hover:underline'
+                size='lg'
+                onClick={() => setIsShowDialog(true)}
+              >
+                Đăng nhập / Đăng ký
+              </Button>
+            </DialogTrigger>
+            <DialogContent className='min-w-[800px] p-0' isHideClose={false}>
+              <DialogHeader>
+                <DialogTitle />
+                <DialogDescription />
+              </DialogHeader>
+              <Login handleCloseDialog={handleCloseDialog} />
+            </DialogContent>
+          </Dialog>
 
-        <Button variant='outline' size='lg'>
-          Đăng tin
-        </Button>
-      </div>
+          <Button variant='outline' size='lg'>
+            Đăng tin
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
