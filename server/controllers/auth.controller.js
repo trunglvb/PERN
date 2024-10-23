@@ -8,7 +8,7 @@ module.exports = {
     const result = await authService.loginWithGoogle(body);
 
     return res.status(HttpStatusCode.Ok).json({
-      message: 'Login successful',
+      message: 'Đăng nhập thành công',
       data: result
     });
   }),
@@ -17,7 +17,7 @@ module.exports = {
     const result = await authService.checkAlreadyUser(email);
 
     return res.status(HttpStatusCode.Ok).json({
-      message: 'Checked already user',
+      message: 'Kiểm tra email thành công',
       data: result
     });
   })

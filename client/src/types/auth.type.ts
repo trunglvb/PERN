@@ -19,4 +19,9 @@ export type IUserResponseFromGoogle = {
   verified_email: boolean;
 };
 
+export type IAuthResponseFromGoogle = ISuccessResponseApi<{
+  access_token: string;
+  refresh_token: string;
+  user?: IUser;
+}>;
 export type IRefreshTokenResponse = ISuccessResponseApi<{ access_token: string }>;

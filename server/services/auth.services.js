@@ -1,6 +1,8 @@
 const db = require('@models');
 const { signToken } = require('@utils/jwt');
 const bcrypt = require('bcryptjs');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const hashPassword = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
@@ -18,8 +20,12 @@ const loginWithGoogle = async (body) => {
     userId = user.id;
   }
 
-  const token = await signToken(userId.toString());
-  return { access_token: token, refresh_token: token, user: user };
+  const [access_token, refresh_token] = await Promise.all([
+    signToken(userId.toString(), process.env.JWT_SECRET),
+    signToken(userId.toString(), process.env.JWT_REFRESH_TOKEN)
+  ]);
+
+  return { access_token: access_token, refresh_token: refresh_token, user: user };
 };
 
 const checkAlreadyUser = async (email) => {

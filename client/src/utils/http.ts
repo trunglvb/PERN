@@ -48,6 +48,7 @@ class Http {
       (response) => {
         console.log('response', response);
         const { url } = response.config; //goi lai api login neu loi token, path cua api
+        console.log('url', url);
         if (url === URL_AUTH.LOGIN || url === URL_AUTH.REGISTER) {
           this.accessToken = (response.data as any).data.access_token;
           this.refreshToken = (response.data as any).data.refresh_token;

@@ -32,6 +32,17 @@ const registerSchema = zod
     path: ['confirmPassword']
   });
 
-export { loginSchema, registerSchema };
+const setupPasswordSchema = zod
+  .object({
+    password: zod.string().min(6, { message: 'Mật khẩu cần tối thiểu 6 ký tự' }),
+    confirmPassword: zod.string().min(6, { message: 'Mật khẩu cần tối thiểu 6 ký tự' })
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Nhập lại password không đúng',
+    path: ['confirmPassword']
+  });
+
+export { loginSchema, registerSchema, setupPasswordSchema };
 export type ILoginSchemaType = zod.infer<typeof loginSchema>;
 export type IRegisterSchemaType = zod.infer<typeof registerSchema>;
+export type ISetupPasswordSchemaType = zod.infer<typeof setupPasswordSchema>;
