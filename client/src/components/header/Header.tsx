@@ -21,10 +21,18 @@ import {
 import Login from '@/components/auth/login';
 import Logo from './Logo';
 import useUserStore from '@/zustand/useUserStore';
+import { useQuery } from '@tanstack/react-query';
+import userApi from '@/apis/user.api';
 
 const Header = () => {
   const [isShowDialog, setIsShowDialog] = useState<boolean>(false);
   const { isAuthenticated } = useUserStore();
+
+  const { data: user } = useQuery({
+    queryKey: ['profile'],
+    queryFn: userApi.getUser,
+    enabled: isAuthenticated
+  });
 
   const handleCloseDialog = () => {
     setIsShowDialog(false);

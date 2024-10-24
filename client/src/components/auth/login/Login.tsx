@@ -3,18 +3,15 @@ import bannerLogin from '@/assets/jpg/banner-login.jpg';
 import { useGoogleLogin } from '@react-oauth/google';
 import { axiosExternalInstance } from '@/utils/external';
 import HttpStatusCode from '@/constants/httpStatusCode.enum';
-import { checkAlreadyUserByEmail, loginWithGoole } from '@/apis/auth.api';
 import { IUserResponseFromGoogle } from '@/types/auth.type';
 import FormEntry from './FormEntry';
 import FormSetup from './FormSetup';
-import { IUser } from '@/types/user.type';
-import {
-  saveAccessTokenToLocalStorage,
-  saveProfileToLocalStorage,
-  saveRefreshTokenToLocalStorage
-} from '@/utils/utils';
+import { useMutation } from '@tanstack/react-query';
+import { saveProfileToLocalStorage } from '@/utils/utils';
 import useUserStore from '@/zustand/useUserStore';
 import { toast } from 'sonner';
+import { IAddUserBody } from '@/types/user.type';
+import authApi from '@/apis/auth.api';
 
 interface ILoginProps {
   handleCloseDialog: () => void;
@@ -25,29 +22,16 @@ const Login = (props: ILoginProps) => {
   const [isShowFormSetup, setIsShowFormSetup] = useState<boolean>(false);
   const [userInfo, setUserInfo] = useState<IUserResponseFromGoogle>();
 
-  const handleGoolgeLoginAfterCheckEmail = async (payload: {
-    email: string;
-    avatar: string;
-    fullname: string;
-    password: string;
-  }) => {
-    const { email, avatar, fullname, password } = payload;
-    const response = await loginWithGoole({
-      email: email,
-      avatar: avatar,
-      fullname: fullname,
-      password: password || ''
-    });
-    if (response.data.data.user) {
-      const { user, access_token, refresh_token } = response.data.data;
-      saveAccessTokenToLocalStorage(access_token);
-      saveRefreshTokenToLocalStorage(refresh_token);
-      saveProfileToLocalStorage(user);
-      setIsAuthenticated(true);
+  const loginGoogleMutation = useMutation({
+    mutationFn: (body: IAddUserBody) => authApi.loginWithGoole(body),
+    onSuccess: (response) => {
+      const { user } = response.data.data;
+      saveProfileToLocalStorage(user!);
       toast.success(response.data.message);
       handleCloseDialog();
+      setIsAuthenticated(true);
     }
-  };
+  });
 
   const handleLoginGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -56,9 +40,9 @@ const Login = (props: ILoginProps) => {
       setUserInfo(data);
 
       if (res.status === HttpStatusCode.Ok) {
-        const alreadyUser = await checkAlreadyUserByEmail(data.email);
+        const alreadyUser = await authApi.checkAlreadyUserByEmail(data.email);
         if (alreadyUser.data.data.hasUser) {
-          await handleGoolgeLoginAfterCheckEmail({
+          await loginGoogleMutation.mutateAsync({
             email: data.email,
             avatar: data.picture,
             fullname: data.name,
@@ -79,7 +63,7 @@ const Login = (props: ILoginProps) => {
       </div>
       <div className='col-span-6 p-8'>
         {isShowFormSetup ? (
-          <FormSetup userInfo={userInfo!} handleGoolgeLoginAfterCheckEmail={handleGoolgeLoginAfterCheckEmail} />
+          <FormSetup userInfo={userInfo!} loginGoogleMutation={loginGoogleMutation} />
         ) : (
           <FormEntry handleLoginGoogle={handleLoginGoogle} />
         )}

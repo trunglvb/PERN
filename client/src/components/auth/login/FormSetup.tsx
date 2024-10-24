@@ -4,29 +4,20 @@ import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import FormInput from '@/components/forms/input';
 import { Button } from '@/components/ui/button';
-import { IUserResponseFromGoogle } from '@/types/auth.type';
-import { loginWithGoole } from '@/apis/auth.api';
-import {
-  saveAccessTokenToLocalStorage,
-  saveProfileToLocalStorage,
-  saveRefreshTokenToLocalStorage
-} from '@/utils/utils';
+import { IAuthResponseFromGoogle, IUserResponseFromGoogle } from '@/types/auth.type';
+
 import useUserStore from '@/zustand/useUserStore';
-import { toast } from 'sonner';
+import { UseMutationResult } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import { IAddUserBody } from '@/types/user.type';
 
 interface IFormSetupProps {
   userInfo: IUserResponseFromGoogle;
-  handleGoolgeLoginAfterCheckEmail: (payload: {
-    email: string;
-    avatar: string;
-    fullname: string;
-    password: string;
-  }) => Promise<void>;
+  loginGoogleMutation: UseMutationResult<AxiosResponse<IAuthResponseFromGoogle, any>, unknown, IAddUserBody, unknown>;
 }
 
 const FormSetup = (props: IFormSetupProps) => {
-  const { userInfo, handleGoolgeLoginAfterCheckEmail } = props;
-  const { setIsAuthenticated } = useUserStore();
+  const { userInfo, loginGoogleMutation } = props;
   const form = useForm<ISetupPasswordSchemaType>({
     resolver: zodResolver(setupPasswordSchema),
     defaultValues: {
@@ -38,7 +29,7 @@ const FormSetup = (props: IFormSetupProps) => {
   const { handleSubmit, setError } = form;
 
   const onSubmit = handleSubmit(async (data) => {
-    await handleGoolgeLoginAfterCheckEmail({
+    await loginGoogleMutation.mutateAsync({
       email: userInfo.email,
       avatar: userInfo.picture,
       fullname: userInfo.name,

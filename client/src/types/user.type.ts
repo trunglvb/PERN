@@ -1,4 +1,4 @@
-export interface IUser {
+export type IUser = {
   id: number;
   email: string;
   fullname: string;
@@ -9,9 +9,11 @@ export interface IUser {
   avatar: string;
   balance?: string;
   score: string;
-  resetPwdToken: string;
+  resetPwdToken?: string;
   resetPwdExpire?: Date;
   idPricing?: number;
   createdAt?: Date;
   updatedAt?: Date;
-}
+};
+
+export type IAddUserBody = Pick<IUser, 'email' | 'fullname' | 'avatar' | 'password'>;

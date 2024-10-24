@@ -1,4 +1,5 @@
 import { IAuthResponseFromGoogle } from '@/types/auth.type';
+import { IAddUserBody } from '@/types/user.type';
 import { ISuccessResponseApi } from '@/types/utils.type';
 import http from '@/utils/http';
 export const URL_AUTH = {
@@ -11,16 +12,18 @@ export const URL_AUTH = {
   GET_USER_INFO_FROM_GOOGLE: 'https://www.googleapis.com/oauth2/v1/userinfo?access_token='
 };
 
-export const loginWithGoole = (body: { email: string; fullname: string; avatar: string; password: string }) =>
-  http.post<IAuthResponseFromGoogle>(URL_AUTH.LOGIN_GOOGLE, body);
-export const registerAccount = (body: { email: string; password: string }) =>
+const loginWithGoole = (body: IAddUserBody) => http.post<IAuthResponseFromGoogle>(URL_AUTH.LOGIN_GOOGLE, body);
+const registerAccount = (body: { email: string; password: string }) =>
   http.post<ISuccessResponseApi<string>>(URL_AUTH.REGISTER, body);
-
-export const checkAlreadyUserByEmail = (email: string) =>
+const checkAlreadyUserByEmail = (email: string) =>
   http.get<ISuccessResponseApi<{ hasUser: boolean }>>(URL_AUTH.CHECK_ALREADY_EMAIL, {
     params: {
       email: email
     }
   });
 
-export const logoutAccount = () => http.post('/logout');
+const logoutAccount = () => http.post('/logout');
+
+const authApi = { loginWithGoole, registerAccount, checkAlreadyUserByEmail, logoutAccount };
+
+export default authApi;

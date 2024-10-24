@@ -8,9 +8,11 @@ const hashPassword = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(
 
 const loginWithGoogle = async (body) => {
   const { email, fullname, avatar, password } = body;
-  let user = await db.User.findOne({ where: { email: email }, attributes: { exclude: ['password', 'idPricing'] } });
+  let user = await db.User.findOne({
+    where: { email: email },
+    attributes: { exclude: ['password', 'resetPwdToken', 'resetPwdExpire'] }
+  });
   let userId = '';
-
   if (!user) {
     const newUser = await db.User.create({ email, fullname, avatar, password: hashPassword(password) });
     if (!newUser) throw new Error('Lỗi tạo mới User');
@@ -21,11 +23,11 @@ const loginWithGoogle = async (body) => {
   }
 
   const [access_token, refresh_token] = await Promise.all([
-    signToken(userId.toString(), process.env.JWT_SECRET),
-    signToken(userId.toString(), process.env.JWT_REFRESH_TOKEN)
+    signToken(userId, process.env.JWT_SECRET),
+    signToken(userId, process.env.JWT_REFRESH_TOKEN)
   ]);
 
-  return { access_token: access_token, refresh_token: refresh_token, user: user };
+  return { access_token: `Bearer ${access_token}`, refresh_token: refresh_token, user: user };
 };
 
 const checkAlreadyUser = async (email) => {

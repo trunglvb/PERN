@@ -3,7 +3,7 @@ const authService = require('@services/auth.services');
 const { HttpStatusCode } = require('@utils/httpStatusCode');
 
 module.exports = {
-  loginWithGoogle: asyncHandler(async (req, res, _next) => {
+  loginWithGoogleController: asyncHandler(async (req, res, _next) => {
     const { body } = req;
     const result = await authService.loginWithGoogle(body);
 
@@ -12,7 +12,7 @@ module.exports = {
       data: result
     });
   }),
-  checkAlreadyUser: asyncHandler(async (req, res, _next) => {
+  checkAlreadyUserController: asyncHandler(async (req, res, _next) => {
     const { email } = req.query;
     const result = await authService.checkAlreadyUser(email);
 
