@@ -6,8 +6,15 @@ const path = {
     soldProperty: '/nha-ban'
   },
   users: {
-    personal: '/thanh-vien/ca-nhan'
+    general: '/thanh-vien/tong-quan',
+    createPost: '/thanh-vien/tao-tin',
+    managerPost: '/thanh-vien/danh-sach-tin',
+    draftPost: '/thanh-vien/tin-nhap',
+    updateAccount: '/thanh-vien/cap-nhat-thong-tin',
+    managerBalance: '/thanh-vien/quan-ly-tai-chinh',
+    deposit: '/thanh-vien/nap-tien',
+    paymentHistory: '/thanh-vien/lich-su-giao-dich'
   }
-} as const
+} as const;
 
-export default path
+export default path;

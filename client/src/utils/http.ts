@@ -77,7 +77,7 @@ class Http {
         }
 
         //loi 401
-        if (isAxiosUnauthorizedError<IErrorResponseApi<{ name: string; message: string }>>(error)) {
+        if (isAxiosUnauthorizedError<IErrorResponseApi<{ message: string }>>(error)) {
           //trường hợp lỗi Token hết hạn và request đó không phải là request refreshTokenReq thì mới gọi refresh token
           //nếu request refresh token bị lỗi thì không tiến hành gọi nữa
           if (isAxiosExpiredTokenError(error) && url !== URL_AUTH.REFRESH_TOKEN) {

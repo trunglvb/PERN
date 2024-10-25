@@ -1,13 +1,5 @@
-import React, { useState } from 'react';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle
-} from '@/components/ui/navigation-menu';
+import { useState } from 'react';
+
 import navigations from '@/constants/navitagion';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,11 +10,14 @@ import {
   DialogTrigger,
   DialogDescription
 } from '@/components/ui/dialog';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import Login from '@/components/auth/login';
 import Logo from './Logo';
 import useUserStore from '@/zustand/useUserStore';
 import { useQuery } from '@tanstack/react-query';
 import userApi from '@/apis/user.api';
+import { Link } from 'react-router-dom';
+import User from './User';
 
 const Header = () => {
   const [isShowDialog, setIsShowDialog] = useState<boolean>(false);
@@ -34,6 +29,8 @@ const Header = () => {
     enabled: isAuthenticated
   });
 
+  const userInfo = user?.data?.data;
+
   const handleCloseDialog = () => {
     setIsShowDialog(false);
   };
@@ -41,45 +38,56 @@ const Header = () => {
     <div className='flex h-24 items-center justify-between p-4 shadow'>
       <div className='flex items-center gap-4'>
         <Logo />
-        <NavigationMenu>
-          <NavigationMenuList>
-            {navigations.map((el) => (
-              <React.Fragment key={el.id}>
-                {el.hasSub ? (
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>{el.name}</NavigationMenuTrigger>
-                    <NavigationMenuContent className='grid min-w-96 grid-cols-2 gap-[6px] p-4'>
-                      {el?.subs?.map((sub) => (
-                        <NavigationMenuLink
+        {navigations.map((nav) => (
+          <HoverCard key={nav.id} openDelay={300}>
+            <div className='group relative mb-1 mr-4 cursor-pointer'>
+              {nav.hasSub ? (
+                <>
+                  <HoverCardTrigger asChild>
+                    <div className='relative text-sm font-semibold'>
+                      {nav.name}
+                      <span className='duration-450 absolute bottom-0 left-0 mr-4 h-[2px] w-0 bg-main text-sm font-semibold transition-all ease-in-out group-focus-within:w-full group-hover:w-full'></span>
+                    </div>
+                  </HoverCardTrigger>
+                  <HoverCardContent
+                    className='min-w-64 rounded-md bg-white p-1 shadow-lg group-hover:w-full'
+                    align='start'
+                  >
+                    <div className='flex flex-col'>
+                      {nav?.subs?.map((sub) => (
+                        <Link
                           key={sub.pathname}
-                          className='cursor-pointer rounded p-1 text-sm font-bold hover:bg-accent'
+                          to={`${nav.pathname}/${sub.pathname}`}
+                          className='cursor-pointer rounded-md px-2 py-[6px] text-sm font-medium hover:bg-accent'
                         >
                           {sub.name}
-                        </NavigationMenuLink>
+                        </Link>
                       ))}
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                ) : (
-                  <NavigationMenuItem>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>{el.name}</NavigationMenuLink>
-                  </NavigationMenuItem>
-                )}
-              </React.Fragment>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+                    </div>
+                  </HoverCardContent>
+                </>
+              ) : (
+                <HoverCardTrigger asChild>
+                  <div className='relative text-sm font-semibold'>
+                    <Link className='text-inherit no-underline hover:no-underline focus:no-underline' to={nav.pathname}>
+                      {nav.name}
+                    </Link>
+                    <span className='duration-450 absolute bottom-0 left-0 mr-4 h-[2px] w-0 bg-main text-sm font-semibold transition-all ease-in-out group-focus-within:w-full group-hover:w-full'></span>
+                  </div>
+                </HoverCardTrigger>
+              )}
+            </div>
+          </HoverCard>
+        ))}
       </div>
-      {isAuthenticated ? (
-        <div>DNTC</div>
-      ) : (
-        <div className='flex items-center gap-3'>
+
+      <div className='flex items-center gap-3'>
+        {isAuthenticated ? (
+          <User />
+        ) : (
           <Dialog onOpenChange={setIsShowDialog} open={isShowDialog}>
             <DialogTrigger asChild>
-              <Button
-                className='border-none bg-transparent text-stone-900 hover:bg-transparent hover:underline'
-                size='lg'
-                onClick={() => setIsShowDialog(true)}
-              >
+              <Button variant='outline' size='default' onClick={() => setIsShowDialog(true)}>
                 Đăng nhập / Đăng ký
               </Button>
             </DialogTrigger>
@@ -91,12 +99,12 @@ const Header = () => {
               <Login handleCloseDialog={handleCloseDialog} />
             </DialogContent>
           </Dialog>
+        )}
 
-          <Button variant='outline' size='lg'>
-            Đăng tin
-          </Button>
-        </div>
-      )}
+        <Button variant='outline' size='default' className='ml-4'>
+          Đăng tin
+        </Button>
+      </div>
     </div>
   );
 };

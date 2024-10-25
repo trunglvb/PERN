@@ -16,6 +16,7 @@ interface IFormSetupProps {
 
 const FormSetup = (props: IFormSetupProps) => {
   const { userInfo, loginGoogleMutation } = props;
+  console.log('userInfo', userInfo);
   const form = useForm<ISetupPasswordSchemaType>({
     resolver: zodResolver(setupPasswordSchema),
     defaultValues: {
@@ -24,7 +25,7 @@ const FormSetup = (props: IFormSetupProps) => {
     }
     // mode: 'onChange'
   });
-  const { handleSubmit, setError } = form;
+  const { handleSubmit } = form;
 
   const onSubmit = handleSubmit(async (data) => {
     await loginGoogleMutation.mutateAsync({

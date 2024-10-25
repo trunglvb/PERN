@@ -37,6 +37,7 @@ const Login = (props: ILoginProps) => {
     onSuccess: async (tokenResponse) => {
       const res = await axiosExternalInstance(tokenResponse?.access_token);
       const data = res.data as IUserResponseFromGoogle;
+      console.log(data);
       setUserInfo(data);
 
       if (res.status === HttpStatusCode.Ok) {

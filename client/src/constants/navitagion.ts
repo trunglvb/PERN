@@ -1,16 +1,16 @@
-import slugify from 'slugify'
-import path from './path'
+import slugify from 'slugify';
+import path from './path';
 
 interface IPostType {
-  name: string
-  pathname: string
+  name: string;
+  pathname: string;
 }
 interface INavigations {
-  id: number
-  name: string
-  pathname: string
-  hasSub: boolean
-  subs?: IPostType[]
+  id: number;
+  name: string;
+  pathname: string;
+  hasSub: boolean;
+  subs?: IPostType[];
 }
 
 const postSoldTypes = [
@@ -26,7 +26,7 @@ const postSoldTypes = [
   'Kho',
   'Nhà xưởng',
   'Khác'
-].map((el) => ({ name: el, pathname: slugify(el.toLocaleLowerCase()) }))
+].map((el) => ({ name: el, pathname: slugify(el.toLocaleLowerCase()) }));
 
 const postRentTypes = [
   'Căn hộ chung cư',
@@ -40,7 +40,7 @@ const postRentTypes = [
   'Kho',
   'Nhà xưởng',
   'Khác'
-].map((el) => ({ name: el, pathname: slugify(el.toLocaleLowerCase()) }))
+].map((el) => ({ name: el, pathname: slugify(el.toLocaleLowerCase()) }));
 
 const navigations: INavigations[] = [
   {
@@ -63,6 +63,6 @@ const navigations: INavigations[] = [
     pathname: path.publics.news,
     hasSub: false
   }
-]
+];
 
-export default navigations
+export default navigations;

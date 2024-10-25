@@ -1,12 +1,15 @@
 const { HttpStatusCode } = require('@utils/httpStatusCode');
-const { pick } = require('lodash');
+const { pick, omit } = require('lodash');
 const { ErrorWithStatus } = require('@utils/errors');
 
 const defaultError = (err, req, res, next) => {
   const statusCode = req.statusCode || HttpStatusCode.InternalServerError;
 
   if (err instanceof ErrorWithStatus) {
-    return res.status(err?.status).json(err);
+    return res.status(err?.status).json({
+      message: 'Lỗi',
+      data: omit(err, ['status'])
+    });
   }
 
   Object.getOwnPropertyNames(err).forEach((key) => {
