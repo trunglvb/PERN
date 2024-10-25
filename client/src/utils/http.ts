@@ -14,6 +14,7 @@ import {
 } from './utils';
 import { IErrorResponseApi } from 'src/types/utils.type';
 import { IAuthResponse } from '@/types/auth.type';
+import { toast } from 'sonner';
 
 class Http {
   instance: AxiosInstance;
@@ -72,7 +73,7 @@ class Http {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const data: any = error.response?.data;
           const message = data?.message ?? error.message;
-          // toast.error(message);
+          toast.error(message);
         }
 
         //loi 401

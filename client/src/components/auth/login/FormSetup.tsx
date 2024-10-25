@@ -5,8 +5,6 @@ import { Form } from '@/components/ui/form';
 import FormInput from '@/components/forms/input';
 import { Button } from '@/components/ui/button';
 import { IAuthResponseFromGoogle, IUserResponseFromGoogle } from '@/types/auth.type';
-
-import useUserStore from '@/zustand/useUserStore';
 import { UseMutationResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { IAddUserBody } from '@/types/user.type';
