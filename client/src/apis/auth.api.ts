@@ -22,7 +22,7 @@ const checkAlreadyUserByEmail = (email: string) =>
     }
   });
 
-const logoutAccount = () => http.post('/logout');
+const logoutAccount = () => http.post(URL_AUTH.LOG_OUT);
 
 const authApi = { loginWithGoole, registerAccount, checkAlreadyUserByEmail, logoutAccount };
 

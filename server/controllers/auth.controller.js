@@ -20,5 +20,11 @@ module.exports = {
       message: 'Kiểm tra email thành công',
       data: result
     });
+  }),
+  logout: asyncHandler(async (_req, res, _next) => {
+    return res.status(HttpStatusCode.Ok).json({
+      message: 'Đăng xuất thành công',
+      data: {}
+    });
   })
 };

@@ -6,9 +6,20 @@ import {
   DropdownMenuSeparator
 } from '@/components/ui/dropdown-menu';
 import { Link } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, LogOut } from 'lucide-react';
+import menu from '@/constants/menu';
+import authApi from '@/apis/auth.api';
+import { useMutation } from '@tanstack/react-query';
+import { clearLocalStorage } from '@/utils/utils';
 
 const User = () => {
+  const logoutMutation = useMutation({
+    mutationFn: authApi.logoutAccount,
+    onSuccess: () => {
+      clearLocalStorage();
+      // queryClient.removeQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] });
+    }
+  });
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className='focus:outline-none'>
@@ -22,59 +33,23 @@ const User = () => {
         <div className='rounded-t-md bg-main/90 p-4 text-white'>
           <h4 className='font-bold'>Gói Hội viên</h4>
           <p className='text-xs'>Tiết kiệm đến 30% chi phí so với đăng tin/đẩy tin lẻ</p>
-          <button className='mt-2 rounded-md bg-white px-4 py-1 text-sm text-main'>Tìm hiểu thêm</button>
+          <button className='mt-2 rounded-md bg-white px-4 py-1 text-xs text-main'>Tìm hiểu thêm</button>
         </div>
         <DropdownMenuSeparator />
-
-        <DropdownMenuItem asChild>
-          <Link to='/tong-quan' className='flex cursor-pointer items-center justify-between'>
-            <span>Tổng quan</span>
-            <span className='rounded-md bg-red-100 px-2 text-xs text-red-500'>Mới</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to='/quan-ly-tin-dang' className='flex cursor-pointer items-center'>
-            <span>Quản lý tin đăng</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to='/goi-hoi-vien' className='flex cursor-pointer items-center justify-between'>
-            <span>Gói hội viên</span>
-            <span className='rounded-md bg-teal-100 px-2 text-xs text-teal-600'>Tiết kiệm đến -30%</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to='/quan-ly-tin-tai-tro' className='flex cursor-pointer items-center'>
-            <span>Quản lý tin tài trợ</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to='/thay-doi-thong-tin' className='flex cursor-pointer items-center'>
-            <span>Thay đổi thông tin cá nhân</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to='/thay-doi-mat-khau' className='flex cursor-pointer items-center'>
-            <span>Thay đổi mật khẩu</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to='/moi-gioi-chuyen-nghiep' className='flex cursor-pointer items-center justify-between'>
-            <span>Môi giới chuyên nghiệp</span>
-            <span className='rounded-md bg-red-100 px-2 text-xs text-red-500'>Mới</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to='/nap-tien' className='flex cursor-pointer items-center'>
-            <span>Nạp tiền</span>
-          </Link>
-        </DropdownMenuItem>
-
+        {menu.map((item) => (
+          <DropdownMenuItem asChild key={item.id}>
+            <Link to={item.path} className='flex cursor-pointer items-center'>
+              <item.icon className='mr-2 h-4 w-4' />
+              <span>{item.label}</span>
+            </Link>
+          </DropdownMenuItem>
+        ))}
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link to='/dang-xuat' className='flex cursor-pointer items-center'>
+          <button className='flex w-full cursor-pointer items-center outline' onClick={() => logoutMutation.mutate()}>
+            <LogOut className='mr-2 h-4 w-4' />
             <span>Đăng xuất</span>
-          </Link>
+          </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
