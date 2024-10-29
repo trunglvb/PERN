@@ -9,6 +9,9 @@ module.exports = {
       padding: '2rem',
       screens: {
         '2xl': '1400px'
+      },
+      fontSize: {
+        base: '14px'
       }
     },
     extend: {
@@ -23,7 +26,6 @@ module.exports = {
           foreground: 'hsl(var(--primary-foreground))'
         },
         secondary: {
-          DEFAULT: '#f1f3f4',
           foreground: 'hsl(var(--secondary-foreground))'
         },
         main: '#6b21a8',
@@ -49,8 +51,7 @@ module.exports = {
         }
       },
       backgroundColor: {
-        main: '#6b21a8',
-        primary: '#f1f3f1'
+        main: '#6b21a8'
       },
       borderRadius: {
         lg: 'var(--radius)',

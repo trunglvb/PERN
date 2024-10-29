@@ -1,8 +1,8 @@
-import { ISetupPasswordSchemaType, setupPasswordSchema } from '@/utils/schema/user.schema';
+import { ISetupPasswordSchemaType, setupPasswordSchema } from '@/schemas/user.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
-import FormInput from '@/components/forms/input';
+import FormInput from '@/components/common/input';
 import { Button } from '@/components/ui/button';
 import { IAuthResponseFromGoogle, IUserResponseFromGoogle } from '@/types/auth.type';
 import { UseMutationResult } from '@tanstack/react-query';

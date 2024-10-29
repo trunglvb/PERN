@@ -1,4 +1,4 @@
-import { ChartPie, FolderCode, LucideProps, List, UserPen, BadgeDollarSign } from 'lucide-react';
+import { ChartPie, LucideProps, List, UserPen, BadgeDollarSign } from 'lucide-react';
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
 import path from './path';
 

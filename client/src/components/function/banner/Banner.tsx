@@ -1,5 +1,6 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { v4 as uuidv4 } from 'uuid';
+import SearchFilter from '../search';
 
 interface IImages {
   images: string[];
@@ -8,7 +9,7 @@ interface IImages {
 const Banner = (props: IImages) => {
   const { images } = props;
   return (
-    <div>
+    <div className='relative'>
       <Carousel
         className='w-full'
         opts={{
@@ -26,6 +27,7 @@ const Banner = (props: IImages) => {
         <CarouselPrevious className='left-2' />
         <CarouselNext className='right-2' />
       </Carousel>
+      <SearchFilter />
     </div>
   );
 };

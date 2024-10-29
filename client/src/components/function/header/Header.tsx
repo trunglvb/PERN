@@ -11,7 +11,7 @@ import {
   DialogDescription
 } from '@/components/ui/dialog';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import Login from '@/components/auth/login';
+import Login from '@/components/function/login';
 import Logo from './Logo';
 import useUserStore from '@/zustand/useUserStore';
 import { useQuery } from '@tanstack/react-query';
@@ -91,7 +91,7 @@ const Header = () => {
                 Đăng nhập / Đăng ký
               </Button>
             </DialogTrigger>
-            <DialogContent className='min-w-[800px] p-0' isHideClose={false}>
+            <DialogContent className='min-w-[800px] p-0'>
               <DialogHeader>
                 <DialogTitle />
                 <DialogDescription />

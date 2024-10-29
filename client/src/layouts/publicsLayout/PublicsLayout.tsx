@@ -1,18 +1,18 @@
-import Header from '@/components/header'
-import React from 'react'
+import Header from '@/components/function/header';
+import React from 'react';
 
 interface ILayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const PublicsLayout = (props: ILayoutProps) => {
-  const { children } = props
+  const { children } = props;
   return (
     <React.Fragment>
       <Header />
       {children}
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default PublicsLayout
+export default PublicsLayout;
