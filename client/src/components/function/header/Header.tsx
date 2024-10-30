@@ -35,7 +35,7 @@ const Header = () => {
     setIsShowDialog(false);
   };
   return (
-    <div className='flex h-24 items-center justify-between p-4 shadow'>
+    <div className='hidden md:flex md:h-24 md:items-center md:justify-between md:p-4 md:shadow'>
       <div className='flex items-center gap-4'>
         <Logo />
         {navigations.map((nav) => (
