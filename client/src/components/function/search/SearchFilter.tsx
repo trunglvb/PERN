@@ -37,19 +37,38 @@ const SearchFilter = () => {
             <TabsContent
               key={i.type}
               value={i.type}
-              className='h-40 space-y-4 rounded-md rounded-tl-none bg-black/60 p-4 text-sm text-white'
+              className='space-y-4 rounded-md rounded-tl-none bg-black/60 p-4 text-sm text-white'
             >
-              <div className=' w-full items-center rounded-sm bg-slate-50  text-primary'>
-                <div className='flex h-10 items-center p-4 transition-all duration-300 ease-in-out'>
-                  <button
-                    className='flex w-full items-center gap-2'
-                    onClick={() => setIsShowSearchDetails(true)}
-                    ref={wrapRef}
+              <div className='w-full items-center rounded-md bg-white  text-primary shadow-lg'>
+                <div className={isShowSearchDetails ? 'py-3' : ''}>
+                  <motion.div
+                    className='overflow-hidden rounded-md border border-[#ccc] bg-[#F2F2F2] shadow-lg'
+                    animate={
+                      isShowSearchDetails
+                        ? {
+                            scale: 0.96
+                          }
+                        : {
+                            scale: 1
+                          }
+                    }
+                    transition={{
+                      duration: 0.45,
+                      ease: [0.25, 0.46, 0.45, 0.94] // easeOutQuad
+                    }}
                   >
-                    <Search className='h-4 w-4' />
-                    <span>Trên toàn quốc</span>
-                  </button>
-                  <Button className='h-full py-3 text-sm '>Tìm kiếm</Button>
+                    <div className='flex h-10 items-center p-4'>
+                      <button
+                        className='flex w-full items-center gap-2'
+                        onClick={() => setIsShowSearchDetails(true)}
+                        ref={wrapRef}
+                      >
+                        <Search className='h-4 w-4' />
+                        <span>Trên toàn quốc</span>
+                      </button>
+                      <Button className='h-full py-3 text-sm '>Tìm kiếm</Button>
+                    </div>
+                  </motion.div>
                 </div>
 
                 <AnimatePresence>
@@ -68,7 +87,7 @@ const SearchFilter = () => {
                           <div className='mb-4 grid grid-cols-6 gap-4'>
                             {provinces.map((i) => (
                               <div className='relative max-h-20 cursor-pointer overflow-hidden rounded-sm' key={i.name}>
-                                <span className='absolute bottom-0 left-1/2 z-10 w-full -translate-x-1/2 transform text-center text-sm text-xs font-medium leading-[20px] text-white'>
+                                <span className='absolute bottom-0 left-1/2 z-10 w-full -translate-x-1/2 transform text-center text-xs font-medium leading-[20px] text-white'>
                                   {i.name}
                                 </span>
                                 <div className='custom-overlay'></div>

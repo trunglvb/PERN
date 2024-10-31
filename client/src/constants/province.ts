@@ -1,34 +1,33 @@
-import binhduong from '../assets/jpg/binhduong.jpg';
-import danang from '../assets/jpg/danang.jpg';
-import hanoi from '../assets/jpg/hanoi.jpg';
-import hcm from '../assets/jpg/hcm.jpg';
-import nhatrang from '../assets/jpg/nhatrang.jpg';
-import dongnai from '../assets/jpg/dongnai.jpg';
-
 const provinces = [
   {
-    name: 'Bình Dương',
-    image: binhduong
+    name: 'Huế',
+    image:
+      'https://plus.unsplash.com/premium_photo-1690960644375-6f2399a08ebc?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
     name: 'Đà Nẵng',
-    image: danang
+    image:
+      'https://images.unsplash.com/photo-1603852452378-a4e8d84324a2?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
     name: 'Hà Nội',
-    image: hanoi
+    image:
+      'https://plus.unsplash.com/premium_photo-1691960159290-6f4ace6e6c4c?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
     name: 'Hồ Chí Minh',
-    image: hcm
+    image:
+      'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?q=80&w=1846&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
-    name: 'Đồng Nai',
-    image: dongnai
+    name: 'Hải Phòng',
+    image:
+      'https://images.unsplash.com/photo-1577185475540-1d82e9a329d0?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
     name: 'Nha Trang',
-    image: nhatrang
+    image:
+      'https://images.unsplash.com/photo-1687025846238-89362631a3e2?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   }
 ];
 
