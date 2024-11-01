@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler');
-const authService = require('@services/auth.services');
 const { HttpStatusCode } = require('@utils/httpStatusCode');
 const userServices = require('../services/user.services');
 
