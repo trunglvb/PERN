@@ -1,5 +1,4 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { v4 as uuidv4 } from 'uuid';
 import SearchFilter from '../search';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';

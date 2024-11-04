@@ -1,4 +1,4 @@
-const provinces = [
+const provincesSlider = [
   {
     name: 'Huế',
     image:
@@ -31,4 +31,4 @@ const provinces = [
   }
 ];
 
-export default provinces;
+export default provincesSlider;
