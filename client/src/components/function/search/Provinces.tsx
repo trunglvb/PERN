@@ -1,6 +1,7 @@
 import { Separator } from '@/components/ui/separator';
-import provincesSlider from '@/constants/province';
+import provincesSlider from '@/constants/function/province';
 import { IProvinceResponse } from '@/types/provinces.type';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface IProvincesProps {
@@ -50,4 +51,4 @@ const ProvincesFilter = (props: IProvincesProps) => {
   );
 };
 
-export default ProvincesFilter;
+export default React.memo(ProvincesFilter);

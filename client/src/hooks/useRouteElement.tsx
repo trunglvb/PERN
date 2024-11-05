@@ -1,13 +1,13 @@
-import path from '@/constants/path'
-import PublicsLayout from '@/layouts/publicsLayout'
-import Home from '@/pages/publish/home'
-import News from '@/pages/publish/news'
-import RentProperty from '@/pages/publish/rentProperty'
-import SoldProperty from '@/pages/publish/soldProperty'
-import { useRoutes } from 'react-router-dom'
+import path from '@/constants/common/path';
+import PublicsLayout from '@/layouts/publicsLayout';
+import Home from '@/pages/publish/home';
+import News from '@/pages/publish/news';
+import RentProperty from '@/pages/publish/rentProperty';
+import SoldProperty from '@/pages/publish/soldProperty';
+import { useRoutes } from 'react-router-dom';
 
 const useRouteElement = () => {
-  const { publics } = path
+  const { publics } = path;
   const routeElement = useRoutes([
     //publish
     {
@@ -43,8 +43,8 @@ const useRouteElement = () => {
         </PublicsLayout>
       )
     }
-  ])
-  return routeElement
-}
+  ]);
+  return routeElement;
+};
 
-export default useRouteElement
+export default useRouteElement;

@@ -1,7 +1,7 @@
 import { IUser } from '@/types/user.type';
 import { IErrorResponseApi } from '@/types/utils.type';
 import axios, { AxiosError } from 'axios';
-import HttpStatusCode from '@/constants/httpStatusCode.enum';
+import HttpStatusCode from '@/constants/common/httpStatusCode.enum';
 
 export const isAxiosError = <T>(error: unknown): error is AxiosError<T> => {
   // eslint-disable-next-line import/no-named-as-default-member
@@ -52,3 +52,11 @@ export const getProfileFromLocalStorage = () => {
 };
 
 export const saveProfileToLocalStorage = (user: IUser) => localStorage.setItem('profile', JSON.stringify(user));
+
+export const debounce = (fn: Function, ms = 300) => {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  return function (this: any, ...args: any[]) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};

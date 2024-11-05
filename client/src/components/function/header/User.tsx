@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Link } from 'react-router-dom';
 import { ChevronDown, LogOut } from 'lucide-react';
-import menu from '@/constants/menu';
+import menu from '@/constants/function/menu';
 import authApi from '@/apis/auth.api';
 import { useMutation } from '@tanstack/react-query';
 import { clearLocalStorage } from '@/utils/utils';

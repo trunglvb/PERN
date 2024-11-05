@@ -1,4 +1,4 @@
-import path from '@/constants/path';
+import path from '@/constants/common/path';
 import { Link } from 'react-router-dom';
 
 const Logo = () => {

@@ -1,6 +1,6 @@
 import { ChartPie, LucideProps, List, UserPen, BadgeDollarSign } from 'lucide-react';
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
-import path from './path';
+import path from '../common/path';
 
 interface IMenu {
   id: number;

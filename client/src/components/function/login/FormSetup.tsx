@@ -16,7 +16,6 @@ interface IFormSetupProps {
 
 const FormSetup = (props: IFormSetupProps) => {
   const { userInfo, loginGoogleMutation } = props;
-  console.log('userInfo', userInfo);
   const form = useForm<ISetupPasswordSchemaType>({
     resolver: zodResolver(setupPasswordSchema),
     defaultValues: {

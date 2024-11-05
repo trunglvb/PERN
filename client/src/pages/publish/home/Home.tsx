@@ -1,6 +1,6 @@
 import Banner from '@/components/function/banner';
 
-import carousels from '@/constants/carousel';
+import carousels from '@/constants/function/carousel';
 
 const Home = () => {
   return (

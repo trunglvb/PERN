@@ -2,7 +2,7 @@ import { useState } from 'react';
 import bannerLogin from '@/assets/jpg/banner-login.jpg';
 import { useGoogleLogin } from '@react-oauth/google';
 import { axiosExternalInstance } from '@/utils/external';
-import HttpStatusCode from '@/constants/httpStatusCode.enum';
+import HttpStatusCode from '@/constants/common/httpStatusCode.enum';
 import { IUserResponseFromGoogle } from '@/types/auth.type';
 import FormEntry from './FormEntry';
 import FormSetup from './FormSetup';
@@ -37,7 +37,6 @@ const Login = (props: ILoginProps) => {
     onSuccess: async (tokenResponse) => {
       const res = await axiosExternalInstance(tokenResponse?.access_token);
       const data = res.data as IUserResponseFromGoogle;
-      console.log(data);
       setUserInfo(data);
 
       if (res.status === HttpStatusCode.Ok) {

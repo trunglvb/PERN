@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import navigations from '@/constants/navitagion';
+import navigations from '@/constants/common/navitagion';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,

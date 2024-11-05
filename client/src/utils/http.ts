@@ -1,5 +1,5 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios';
-import HttpStatusCode from '@/constants/httpStatusCode.enum';
+import HttpStatusCode from '@/constants/common/httpStatusCode.enum';
 import config from './config';
 import { URL_AUTH } from '@/apis/auth.api';
 import {
