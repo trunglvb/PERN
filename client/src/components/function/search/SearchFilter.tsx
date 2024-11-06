@@ -8,7 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { useQuery } from '@tanstack/react-query';
 import provinceApi from '@/apis/openApis/province.api';
 import ProvincesFilter from './Provinces';
-import RangeFilter from './RangeFilter';
+import RangeFilter from './rangeFilter/RangeFilter';
 
 const tabTypes = [
   {
