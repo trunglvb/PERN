@@ -8,7 +8,6 @@ import { Separator } from '@/components/ui/separator';
 import { useQuery } from '@tanstack/react-query';
 import provinceApi from '@/apis/openApis/province.api';
 import ProvincesFilter from './Provinces';
-import RangeFilter from './rangeFilter/RangeFilter';
 import Price from './rangeFilter/Price';
 import Size from './rangeFilter/Size';
 
