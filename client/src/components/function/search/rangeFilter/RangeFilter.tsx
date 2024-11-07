@@ -1,57 +1,72 @@
-import { Popover } from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { PopoverContent, PopoverTrigger } from '@radix-ui/react-popover';
 import { Label } from '@/components/ui/label';
-// import { Slider } from '@/components/ui/slider';
-import { ArrowRight, X } from 'lucide-react';
-import React, { useState } from 'react';
-import InputNumber from '@/components/common/inputNumber';
+import { ArrowRight, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { FieldValues, useForm, UseFormReturn, Path, PathValue } from 'react-hook-form';
-import { IPriceSchemaType, priceSchema } from '@/schemas/function.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { FieldValues, UseFormReturn, Path, PathValue } from 'react-hook-form';
 import { Slider } from '@/components/ui/slider';
 import { prices } from '@/constants/function/prices';
 import { ScrollArea } from '@/components/ui/scroll-area';
-
-// const defaultPrice = {
-//   price_min: 0,
-//   price_max: 10000,
-//   step: 1
-// } as const;
+import FormInputNumber from '@/components/common/inputNumber/FormInputNumber';
+import { motion } from 'framer-motion';
 
 const default_all_value = 'ALL';
 
+interface IOptionsProps {
+  id: number;
+  label: string;
+  value: string;
+}
+
+interface IDefaultRangeProps {
+  min: number;
+  max: number;
+  step: number;
+}
+
 interface IRangleFilterProps<T extends FieldValues> {
   label: string;
-  options: {
-    id: number;
-    label: string;
-    value: string;
-  }[];
+  options: IOptionsProps[];
   form: UseFormReturn<T>;
   schema_min: Path<T>;
   schema_max: Path<T>;
   schema_range: Path<T>;
-  defaultRange: {
-    min: number;
-    max: number;
-    step: number;
-  };
+  defaultRange: IDefaultRangeProps;
+  onChange?: (value: T) => void;
+  unit: 'price' | 'size';
+  minValueLabel?: string;
+  maxValueLabel?: string;
 }
 
 const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
-  type IPathValue = PathValue<T, typeof schema_range>;
-  const { label, options, form, schema_min, schema_max, schema_range, defaultRange } = props;
+  type IPathValue = PathValue<T, Path<T>>;
+  const {
+    label,
+    options,
+    form,
+    schema_min,
+    schema_max,
+    schema_range,
+    defaultRange,
+    unit,
+    onChange,
+    minValueLabel,
+    maxValueLabel
+  } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedRange, setSelectedRange] = useState<string>(default_all_value);
+  const [labelText, setLabelText] = useState(label);
+  const [isShowPrice, setIsShowPrice] = useState(false);
+
   const { handleSubmit, setValue, watch, reset } = form;
   const currentValue = watch();
 
   const handleRadioChange = (value: string) => {
     setSelectedRange(value);
+    setIsShowPrice(true);
     const isSelectAll = value === default_all_value;
     if (isSelectAll) {
       setValue(schema_range, [defaultRange.min, defaultRange.max] as IPathValue);
@@ -59,23 +74,101 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
       setValue(schema_max, defaultRange.max.toString() as IPathValue);
     } else {
       const parseValue = JSON.parse(value);
-      console.log(parseValue[0], parseValue[1]);
       setValue(schema_range, [Number(parseValue[0]), Number(parseValue[1])] as IPathValue);
       setValue(schema_min, parseValue[0].toString() as IPathValue);
       setValue(schema_max, parseValue[1].toString() as IPathValue);
     }
+    if (value === prices[prices.length - 1].value) {
+      setValue(schema_max, '' as IPathValue);
+    }
+  };
+
+  const handleMinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const min = event?.target.value;
+    setValue(schema_range, [Number(min), currentValue[schema_range][1]] as IPathValue);
+    setSelectedRange('');
+    setIsShowPrice(true);
+  };
+
+  const handleMaxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let max = event?.target.value;
+    setValue(schema_range, [currentValue[schema_range][0], Number(max)] as IPathValue);
+    setSelectedRange('');
+    setIsShowPrice(true);
+  };
+
+  const handleSliderChange = (value: number[]) => {
+    setValue(schema_range, value as IPathValue);
+    setValue(schema_min, value[0].toString() as IPathValue);
+    setValue(schema_max, value[1].toString() as IPathValue);
+    setSelectedRange('');
+    setIsShowPrice(true);
   };
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    let min = data[schema_min];
+    let max = data[schema_max];
+    if (Number(min) > Number(max)) {
+      setValue(schema_min, max as IPathValue);
+      setValue(schema_max, min as IPathValue);
+    } else {
+      setValue(schema_min, min as IPathValue);
+      setValue(schema_max, max as IPathValue);
+    }
+    setIsOpen(false);
+    onChange && onChange(data);
   });
+
+  const convertRangeValue = (value: string) => {
+    if (!value || Number(value) <= defaultRange.min) {
+      return '';
+    }
+    switch (unit) {
+      case 'price':
+        if (Number(value) > 999) {
+          if (Number(value) > 1000000) {
+            return '1000 tỷ';
+          }
+          return `${Number(value) / 1000} tỷ`;
+        } else {
+          return `${value} triệu`;
+        }
+      case 'size':
+        return `${value} m²`;
+    }
+  };
+
+  const convertLabelText = (min: string, max: string) => {
+    if (selectedRange == 'ALL' || (Number(min) === 0 && Number(max) === 0)) {
+      setLabelText(label);
+      return;
+    }
+    if (Number(min) === 0) {
+      setLabelText(`Dưới ${convertRangeValue(max)}`);
+    } else if (Number(min) >= defaultRange.max) {
+      setLabelText(`Trên ${convertRangeValue(min)}`);
+    } else {
+      setLabelText(`${convertRangeValue(min)} - ${convertRangeValue(max)}`);
+    }
+  };
+
+  useEffect(() => {
+    convertLabelText(currentValue[schema_min], currentValue[schema_max]);
+  }, [currentValue[schema_min], currentValue[schema_max]]);
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger className='rounded-sm border px-4 py-[6px] text-sm text-white'>
-        {!!selectedRange && selectedRange !== default_all_value
-          ? options.find((i) => i.value === selectedRange)?.value
-          : label}
+        <div className='relative flex items-center justify-center'>
+          <div>{labelText}</div>
+          <motion.span
+            className='absolute right-0'
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ChevronDown size={14} />
+          </motion.span>
+        </div>
       </PopoverTrigger>
       <PopoverContent className='w-[--radix-popover-trigger-width] rounded-md bg-white p-0 shadow-lg'>
         <div className='mt-1'>
@@ -92,73 +185,58 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
           <div>
             <Form {...form}>
               <form onSubmit={onSubmit}>
-                <div className='grid gap-4 px-4'>
+                <div className='grid items-center gap-4 px-4'>
                   <div className='flex items-center gap-4'>
                     <div className='grid flex-1 gap-2'>
-                      <Label htmlFor='from' className='text-sm font-semibold'>
-                        {`${label} thấp nhất`}
-                      </Label>
-                      <FormField
-                        control={form.control}
-                        name={schema_min}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <InputNumber
-                                id='from'
-                                type='text'
-                                placeholder='Từ'
-                                {...field}
-                                maxLength={6}
-                                onChange={(event) => {
-                                  const min = event.target.value;
-                                  field.onChange(event);
-                                  setValue(schema_range, [Number(min), currentValue[schema_range][1]] as IPathValue);
-                                  setSelectedRange('');
-                                  // trigger('price_max');
-                                }}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
+                      <div className='relative'>
+                        {isShowPrice ? (
+                          <div className='flex gap-1 text-sm'>
+                            <span className='font-semibold'>Từ:</span>
+                            <span className='font-semibold text-main'>
+                              {convertRangeValue(currentValue[schema_min])}
+                            </span>
+                          </div>
+                        ) : (
+                          <Label htmlFor='from' className='text-sm font-semibold'>
+                            {minValueLabel ?? ''}
+                          </Label>
                         )}
+                      </div>
+                      <FormInputNumber
+                        placeholder='Từ'
+                        formControl={form}
+                        name={schema_min}
+                        onChange={(e) => handleMinChange(e)}
+                        maxLength={7}
+                        value={currentValue[schema_min]}
                       />
                     </div>
                     <div className='mt-8'>
                       <ArrowRight size={14} />
                     </div>
                     <div className='grid flex-1 gap-2'>
-                      <Label htmlFor='to' className='font-semibold'>
-                        {`${label} cao nhất`}
-                      </Label>
-                      <FormField
-                        control={form.control}
+                      {isShowPrice ? (
+                        <div className='flex gap-1 text-sm'>
+                          <span className='font-semibold'>Đến:</span>
+                          <span className='font-semibold text-main'>{convertRangeValue(currentValue[schema_max])}</span>
+                        </div>
+                      ) : (
+                        <Label htmlFor='to' className='font-semibold'>
+                          {maxValueLabel ?? ''}
+                        </Label>
+                      )}
+                      <FormInputNumber
+                        placeholder='Đến'
+                        formControl={form}
                         name={schema_max}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <InputNumber
-                                id='from'
-                                type='text'
-                                placeholder='Đến'
-                                maxLength={8}
-                                {...field}
-                                onChange={(event) => {
-                                  const max = event.target.value;
-                                  field.onChange(event);
-                                  setValue(schema_range, [currentValue[schema_range][0], Number(max)] as IPathValue);
-                                  setSelectedRange('');
-                                  // trigger('price_max');
-                                }}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
+                        onChange={(e) => handleMaxChange(e)}
+                        maxLength={7}
+                        value={currentValue[schema_max]}
                       />
                     </div>
                   </div>
                 </div>
+
                 <div className='my-6 px-4'>
                   <FormField
                     control={form.control}
@@ -169,14 +247,9 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
                           <Slider
                             min={defaultRange.min}
                             max={defaultRange.max}
-                            step={300}
+                            step={defaultRange.step}
                             value={field.value}
-                            onValueChange={(value) => {
-                              setValue(schema_range, value as IPathValue);
-                              setValue(schema_min, value?.[0].toString() as IPathValue);
-                              setValue(schema_max, value?.[1].toString() as IPathValue);
-                              setSelectedRange('');
-                            }}
+                            onValueChange={handleSliderChange}
                             isDirectionControl
                           ></Slider>
                         </FormControl>
@@ -192,7 +265,7 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
                     onValueChange={(value) => handleRadioChange(value)}
                     className='space-y-1'
                   >
-                    {prices.map((i) => (
+                    {options.map((i) => (
                       <div className='flex items-center justify-between px-4' key={i.id}>
                         <Label htmlFor={i.id.toString()} className='flex-1 cursor-pointer'>
                           {i.label}
@@ -204,17 +277,19 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
                 </ScrollArea>
 
                 <Separator className='mt-2' />
-                <div className=' flex justify-between px-4 py-2'>
-                  <Button
-                    variant='outline'
-                    size={'sm'}
+
+                <div className=' flex items-center justify-between px-4 py-2'>
+                  <div
+                    role='presentation'
+                    className='cursor-pointer text-sm font-semibold'
                     onClick={() => {
                       reset();
-                      setSelectedRange(prices[0].value);
+                      setSelectedRange(options[0].value);
+                      setLabelText(label);
                     }}
                   >
                     Đặt lại
-                  </Button>
+                  </div>
                   <Button size={'sm'} type='submit'>
                     Áp dụng
                   </Button>
@@ -228,4 +303,4 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
   );
 };
 
-export default React.memo(RangeFilter);
+export default RangeFilter;

@@ -7,10 +7,17 @@ import PasswordInput from '../passwordInput';
 interface IFormInputProps<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   formControl: UseFormReturn<T>;
   name: Path<T>;
-  placeholder?: string;
+  classNameInput?: string;
 }
 
-const FormInput = <T extends FieldValues>({ formControl, name, placeholder, type, ...rest }: IFormInputProps<T>) => {
+const FormInput = <T extends FieldValues>({
+  formControl,
+  name,
+  placeholder,
+  type,
+  classNameInput,
+  ...rest
+}: IFormInputProps<T>) => {
   return (
     <FormField
       control={formControl.control}

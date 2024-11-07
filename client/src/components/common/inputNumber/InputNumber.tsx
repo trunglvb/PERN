@@ -4,11 +4,10 @@ import { forwardRef, InputHTMLAttributes, useState } from 'react';
 export interface InputNumberProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   classNameInput?: string;
-  classNameError?: string;
 }
 
 const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(function InputNumberInner(
-  { errorMessage, className, classNameError, onChange, value = '', ...rest },
+  { errorMessage, className, onChange, value = '', ...rest },
   ref
 ) {
   const [localValue, setLocalValue] = useState<string>('');

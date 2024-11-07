@@ -18,7 +18,7 @@ export const prices: PriceRange[] = [
   },
   {
     id: 1,
-    label: '500 triệu',
+    label: 'Dưới 500 triệu',
     value: JSON.stringify([0, 0.5 * Math.pow(10, 3)])
   },
   {
@@ -59,7 +59,7 @@ export const prices: PriceRange[] = [
   {
     id: 50,
     label: 'Trên 10 tỷ',
-    value: JSON.stringify(['gte', 10 * Math.pow(10, 3)])
+    value: JSON.stringify([10 * Math.pow(10, 3), 10 * Math.pow(10, 3)])
   }
 ];
 
@@ -112,6 +112,11 @@ export const sizes: SizeRange[] = [
   {
     id: 9,
     label: 'Trên 500 m²',
-    value: JSON.stringify(['gte', 500])
+    value: JSON.stringify([500, 500])
   }
 ];
+
+export const rangePriceForFilter = {
+  min: 0,
+  max: 1000
+};

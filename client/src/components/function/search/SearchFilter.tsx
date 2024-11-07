@@ -9,6 +9,8 @@ import { useQuery } from '@tanstack/react-query';
 import provinceApi from '@/apis/openApis/province.api';
 import ProvincesFilter from './Provinces';
 import RangeFilter from './rangeFilter/RangeFilter';
+import Price from './rangeFilter/Price';
+import Size from './rangeFilter/Size';
 
 const tabTypes = [
   {
@@ -102,9 +104,9 @@ const SearchFilter = () => {
               </div>
               <div className='relative'>
                 <div className='absolute top-10 grid w-full grid-cols-3 gap-2 text-primary'>
-                  <RangeFilter />
-                  <RangeFilter />
-                  <RangeFilter />
+                  <div>Loai nha dat</div>
+                  <Price />
+                  <Size />
                 </div>
               </div>
             </TabsContent>

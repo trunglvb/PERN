@@ -1,2 +1,2 @@
 import InputNumber from './InputNumber';
-export default InputNumber;
+export { InputNumber };

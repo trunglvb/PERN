@@ -1,4 +1,3 @@
-import React from 'react';
 import RangeFilter from './RangeFilter';
 import { useForm } from 'react-hook-form';
 import { IPriceSchemaType, priceSchema } from '@/schemas/function.schema';
@@ -6,9 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { prices } from '@/constants/function/prices';
 
 const defaultPrice = {
-  price_min: 0,
-  price_max: 10000,
-  step: 1
+  min: 0,
+  max: 10000,
+  step: 100
 } as const;
 
 const Price = () => {
@@ -17,10 +16,26 @@ const Price = () => {
     defaultValues: {
       price_min: '',
       price_max: '',
-      price: [defaultPrice.price_min, defaultPrice.price_max]
+      price: [defaultPrice.min, defaultPrice.max]
     }
   });
-  return <RangeFilter label='Mức giá' options={prices} form={form} />;
+  return (
+    <RangeFilter
+      label='Mức giá'
+      options={prices}
+      form={form}
+      schema_min='price_min'
+      schema_max='price_max'
+      schema_range='price'
+      defaultRange={defaultPrice}
+      onChange={(value) => {
+        console.log(value);
+      }}
+      unit='price'
+      minValueLabel='Giá thấp nhất'
+      maxValueLabel='Giá cao nhất'
+    />
+  );
 };
 
 export default Price;
