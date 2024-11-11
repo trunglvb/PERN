@@ -170,7 +170,7 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
           </motion.span>
         </div>
       </PopoverTrigger>
-      <PopoverContent className='w-[--radix-popover-trigger-width] rounded-md bg-white p-0 shadow-lg'>
+      <PopoverContent className='rounded-md bg-white p-0 shadow-lg'>
         <div className='mt-1'>
           <div className='p-4'>
             <div className='relative mb-2 flex items-center justify-center '>
@@ -186,22 +186,19 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
             <Form {...form}>
               <form onSubmit={onSubmit}>
                 <div className='grid items-center gap-4 px-4'>
-                  <div className='flex items-center gap-4'>
+                  <div className='mt-1 flex items-center gap-2'>
                     <div className='grid flex-1 gap-2'>
-                      <div className='relative'>
-                        {isShowPrice ? (
-                          <div className='flex gap-1 text-sm'>
-                            <span className='font-semibold'>Từ:</span>
-                            <span className='font-semibold text-main'>
-                              {convertRangeValue(currentValue[schema_min])}
-                            </span>
-                          </div>
-                        ) : (
-                          <Label htmlFor='from' className='text-sm font-semibold'>
-                            {minValueLabel ?? ''}
-                          </Label>
-                        )}
-                      </div>
+                      {isShowPrice ? (
+                        <div className='flex gap-1 text-sm !leading-none'>
+                          <span className='font-semibold'>Từ:</span>
+                          <span className='font-semibold text-main'>{convertRangeValue(currentValue[schema_min])}</span>
+                        </div>
+                      ) : (
+                        <Label htmlFor='from' className='text-sm font-semibold !leading-none'>
+                          {minValueLabel ?? ''}
+                        </Label>
+                      )}
+
                       <FormInputNumber
                         placeholder='Từ'
                         formControl={form}

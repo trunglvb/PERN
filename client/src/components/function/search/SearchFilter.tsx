@@ -8,8 +8,9 @@ import { Separator } from '@/components/ui/separator';
 import { useQuery } from '@tanstack/react-query';
 import provinceApi from '@/apis/openApis/province.api';
 import ProvincesFilter from './Provinces';
-import Price from './rangeFilter/Price';
-import Size from './rangeFilter/Size';
+import Price from './filter/Price';
+import Size from './filter/Size';
+import Type from './filter/Type';
 
 const tabTypes = [
   {
@@ -37,7 +38,7 @@ const SearchFilter = () => {
 
   return (
     <div className='absolute left-10 right-10 top-10 flex items-center justify-center '>
-      <div className='w-[900px] max-w-full'>
+      <div className='w-[945px] max-w-full'>
         <Tabs className='w-full space-y-0' defaultValue={'rent'} onChange={() => setIsShowSearchDetails(false)}>
           <TabsList className='rounded-b-none'>
             {tabTypes.map((i) => (
@@ -103,7 +104,7 @@ const SearchFilter = () => {
               </div>
               <div className='relative'>
                 <div className='absolute top-10 grid w-full grid-cols-3 gap-2 text-primary'>
-                  <div>Loai nha dat</div>
+                  <Type />
                   <Price />
                   <Size />
                 </div>
