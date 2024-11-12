@@ -3,15 +3,20 @@ import { Label } from '@/components/ui/label';
 import { ISecondLevelSelectOptions } from '@/types/search.type';
 import { Home } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { ControllerRenderProps } from 'react-hook-form';
 
 interface ISecondLevelSelectProps {
   items: ISecondLevelSelectOptions[];
   onChange?: (value: ISecondLevelSelectOptions[]) => void;
+  defaulValue?: object;
 }
 
 const SecondLevelSelect = (props: ISecondLevelSelectProps) => {
-  const { onChange, items } = props;
-  const [selectedItems, setSelectedItems] = useState<ISecondLevelSelectOptions[]>([]);
+  const { onChange, items, defaulValue } = props;
+  const [selectedItems, setSelectedItems] = useState<ISecondLevelSelectOptions[]>(
+    (defaulValue as ISecondLevelSelectOptions[]) ?? []
+  );
+  const isCheckAll = items.flatMap((item) => [item, ...(item?.children || [])]).length === selectedItems?.length;
 
   const handleChildrenCheckedValue = (id: string) => {
     return selectedItems?.some((i) => i.id === id);
@@ -19,10 +24,10 @@ const SecondLevelSelect = (props: ISecondLevelSelectProps) => {
 
   const handleParentCheckedValue = (id: string) => {
     const selectItem = items?.find((i) => i.id === id);
-    const isSelecAllChidlren = selectItem?.children
+    const isSelectParent = selectItem?.children
       ? selectedItems?.filter((i) => i?.parentId === id)?.length === items?.find((i) => i.id === id)?.children?.length
       : handleChildrenCheckedValue(id);
-    return isSelecAllChidlren;
+    return isSelectParent;
   };
 
   const handleParentCheck = (item: ISecondLevelSelectOptions) => {
@@ -62,7 +67,14 @@ const SecondLevelSelect = (props: ISecondLevelSelectProps) => {
           <Home className='h-4 w-4' />
           <div className='flex items-center justify-center text-sm font-medium leading-none'>Tất cả nhà đất</div>
         </Label>
-        <Checkbox id='all' className='h-[14px] w-[14px]' />
+        <Checkbox
+          id='all'
+          className='h-[14px] w-[14px]'
+          checked={isCheckAll}
+          onCheckedChange={(value) => {
+            value ? setSelectedItems(items.flatMap((item) => [item, ...(item?.children || [])])) : setSelectedItems([]);
+          }}
+        />
       </div>
       <div>
         {items.map((i) => (

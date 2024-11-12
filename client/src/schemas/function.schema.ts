@@ -12,5 +12,10 @@ export const sizeSchema = z.object({
   size: z.number().array()
 });
 
+export const postTypesSchema = z.object({
+  categories: z.array(z.any())
+});
+
 export type IPriceSchemaType = z.infer<typeof priceSchema>;
 export type ISizeSchemaType = z.infer<typeof sizeSchema>;
+export type IPostTypesSchemaType = z.infer<typeof postTypesSchema>;

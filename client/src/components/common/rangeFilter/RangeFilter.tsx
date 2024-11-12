@@ -1,7 +1,7 @@
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
-import { ArrowRight, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowRight, X, ChevronDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
@@ -196,9 +196,7 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
                           </span>
                         </div>
                       ) : (
-                        <Label htmlFor='from' className='text-sm font-semibold !leading-none'>
-                          {minValueLabel ?? ''}
-                        </Label>
+                        <div className='text-sm font-semibold !leading-none'>{minValueLabel ?? ''}</div>
                       )}
 
                       <FormInputNumber
@@ -215,16 +213,14 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
                     </div>
                     <div className='grid flex-1 gap-2'>
                       {isShowPrice ? (
-                        <div className='flex gap-1 text-sm'>
+                        <div className='flex gap-1 text-sm !leading-none'>
                           <span className='font-semibold'>Đến:</span>
                           <span className='font-semibold text-red-600'>
                             {convertRangeValue(currentValue[schema_max])}
                           </span>
                         </div>
                       ) : (
-                        <Label htmlFor='to' className='font-semibold'>
-                          {maxValueLabel ?? ''}
-                        </Label>
+                        <div className='text-sm font-semibold !leading-none'>{maxValueLabel ?? ''}</div>
                       )}
                       <FormInputNumber
                         placeholder='Đến'

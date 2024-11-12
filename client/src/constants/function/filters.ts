@@ -1,5 +1,5 @@
 import { ISecondLevelSelectOptions } from '@/types/search.type';
-import { Building, Building2, LandPlot } from 'lucide-react';
+import { Building, Building2, LandPlot, Tractor, Warehouse, HandHeart } from 'lucide-react';
 
 export const postTypes: ISecondLevelSelectOptions[] = [
   {
@@ -61,7 +61,7 @@ export const postTypes: ISecondLevelSelectOptions[] = [
   {
     id: 'resort',
     label: 'Trang trại, khu nghỉ dưỡng',
-    icon: Building,
+    icon: Tractor,
     children: [
       {
         id: 'condotel',
@@ -73,11 +73,11 @@ export const postTypes: ISecondLevelSelectOptions[] = [
   {
     id: 'warehouse',
     label: 'Kho, nhà xưởng',
-    icon: Building
+    icon: Warehouse
   },
   {
     id: 'other',
     label: 'Bất động sản khác',
-    icon: Building
+    icon: HandHeart
   }
 ];
