@@ -1,4 +1,6 @@
+import SecondLevelSelect from '@/components/common/secondLevelSeclect/SecondLevelSelect';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, X } from 'lucide-react';
@@ -22,14 +24,20 @@ const Type = () => {
       </PopoverTrigger>
       <PopoverContent className='rounded-md bg-white p-0 shadow-lg'>
         <div className='mt-1'>
-          <div className='p-4'>
-            <div className='relative mb-2 flex items-center justify-center '>
+          <div className='py-4'>
+            <div className='relative mb-2 flex items-center justify-center px-4'>
               <span className='text-base font-semibold'>Loại nhà đất</span>
               <button className='absolute right-0' onClick={() => setIsOpen(false)}>
                 <X size={14} />
               </button>
             </div>
             <Separator />
+
+            <ScrollArea className='h-52'>
+              <div className='mt-4 px-4'>
+                <SecondLevelSelect />
+              </div>
+            </ScrollArea>
           </div>
         </div>
       </PopoverContent>

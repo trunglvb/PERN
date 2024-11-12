@@ -191,7 +191,9 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
                       {isShowPrice ? (
                         <div className='flex gap-1 text-sm !leading-none'>
                           <span className='font-semibold'>Từ:</span>
-                          <span className='font-semibold text-main'>{convertRangeValue(currentValue[schema_min])}</span>
+                          <span className='font-semibold text-red-600'>
+                            {convertRangeValue(currentValue[schema_min])}
+                          </span>
                         </div>
                       ) : (
                         <Label htmlFor='from' className='text-sm font-semibold !leading-none'>
@@ -215,7 +217,9 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
                       {isShowPrice ? (
                         <div className='flex gap-1 text-sm'>
                           <span className='font-semibold'>Đến:</span>
-                          <span className='font-semibold text-main'>{convertRangeValue(currentValue[schema_max])}</span>
+                          <span className='font-semibold text-red-600'>
+                            {convertRangeValue(currentValue[schema_max])}
+                          </span>
                         </div>
                       ) : (
                         <Label htmlFor='to' className='font-semibold'>
