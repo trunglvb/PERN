@@ -81,7 +81,7 @@ const Header = () => {
         ))}
       </div>
 
-      <div className='flex items-center gap-3'>
+      <div className='flex items-center gap-2'>
         {isAuthenticated ? (
           <User />
         ) : (
@@ -101,7 +101,7 @@ const Header = () => {
           </Dialog>
         )}
 
-        <Button variant='outline' size='default' className='ml-4'>
+        <Button variant='outline' size='default'>
           Đăng tin
         </Button>
       </div>

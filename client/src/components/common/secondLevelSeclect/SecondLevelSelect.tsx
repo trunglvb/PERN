@@ -1,133 +1,39 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { Building, Building2, Home, LandPlot, LucideProps } from 'lucide-react';
-import { useState, ForwardRefExoticComponent, RefAttributes, useEffect } from 'react';
-
-interface IItems {
-  id: string;
-  label: string;
-  icon?: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>;
-  parentId?: string;
-  children?: {
-    id: string;
-    parentId?: string;
-    label: string;
-  }[];
-}
+import { ISecondLevelSelectOptions } from '@/types/search.type';
+import { Home } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface ISecondLevelSelectProps {
-  items: IItems[];
-  onChange?: (value: IItems[]) => void;
+  items: ISecondLevelSelectOptions[];
+  onChange?: (value: ISecondLevelSelectOptions[]) => void;
 }
 
-const fakeData: IItems[] = [
-  {
-    id: 'apartment',
-    label: 'Căn hộ chung cư',
-    icon: Building2,
-    children: [
-      {
-        id: 'mini-apartment',
-        parentId: 'apartment',
-        label: 'Chung cư mini, căn hộ dịch vụ'
-      }
-    ]
-  },
-  {
-    id: 'house',
-    label: 'Các loại nhà bán',
-    icon: Building,
-    children: [
-      {
-        id: 'private-house',
-        parentId: 'house',
-        label: 'Nhà riêng'
-      },
-      {
-        id: 'villa',
-        parentId: 'house',
-        label: 'Nhà biệt thự, liền kề'
-      },
-      {
-        id: 'street-house',
-        parentId: 'house',
-        label: 'Nhà mặt phố'
-      },
-      {
-        id: 'shophouse',
-        parentId: 'house',
-        label: 'Shophouse, nhà phố thương mại'
-      }
-    ]
-  },
-  {
-    id: 'land',
-    label: 'Các loại đất bán',
-    icon: LandPlot,
-    children: [
-      {
-        id: 'project-land',
-        parentId: 'land',
-        label: 'Đất nền dự án'
-      },
-      {
-        id: 'land-plot',
-        parentId: 'land',
-        label: 'Bán đất'
-      }
-    ]
-  },
-  {
-    id: 'resort',
-    label: 'Trang trại, khu nghỉ dưỡng',
-    icon: Building,
-    children: [
-      {
-        id: 'condotel',
-        parentId: 'resort',
-        label: 'Condotel'
-      }
-    ]
-  },
-  {
-    id: 'warehouse',
-    label: 'Kho, nhà xưởng',
-    icon: Building
-  },
-  {
-    id: 'other',
-    label: 'Bất động sản khác',
-    icon: Building
-  }
-];
-
 const SecondLevelSelect = (props: ISecondLevelSelectProps) => {
-  const { onChange } = props;
-  const [selectedItems, setSelectedItems] = useState<IItems[]>([]);
+  const { onChange, items } = props;
+  const [selectedItems, setSelectedItems] = useState<ISecondLevelSelectOptions[]>([]);
 
   const handleChildrenCheckedValue = (id: string) => {
     return selectedItems?.some((i) => i.id === id);
   };
 
   const handleParentCheckedValue = (id: string) => {
-    const selectItem = selectedItems?.find((i) => i.id === id);
+    const selectItem = items?.find((i) => i.id === id);
     const isSelecAllChidlren = selectItem?.children
-      ? selectedItems?.filter((i) => i?.parentId === id)?.length ===
-        fakeData?.find((i) => i.id === id)?.children?.length
+      ? selectedItems?.filter((i) => i?.parentId === id)?.length === items?.find((i) => i.id === id)?.children?.length
       : handleChildrenCheckedValue(id);
     return isSelecAllChidlren;
   };
 
-  const handleParentCheck = (item: IItems) => {
+  const handleParentCheck = (item: ISecondLevelSelectOptions) => {
     if (item?.children?.length! > 0) {
-      setSelectedItems((prevItems) => [...prevItems, item, ...(item?.children as IItems[])]);
+      setSelectedItems((prevItems) => [...prevItems, item, ...(item?.children as ISecondLevelSelectOptions[])]);
     } else {
       handleChildrenCheck(item);
     }
-    onChange && onChange(selectedItems);
   };
 
-  const handleParentUncheck = (item: IItems) => {
+  const handleParentUncheck = (item: ISecondLevelSelectOptions) => {
     if (item?.children?.length! > 0) {
       setSelectedItems((prevItems) =>
         prevItems.filter((i) => i.id !== item.id && !item.children?.some((child) => child.id === i.id))
@@ -135,22 +41,23 @@ const SecondLevelSelect = (props: ISecondLevelSelectProps) => {
     } else {
       handleChildrenUnCheck(item);
     }
-    onChange && onChange(selectedItems);
   };
 
-  const handleChildrenCheck = (item: IItems) => {
+  const handleChildrenCheck = (item: ISecondLevelSelectOptions) => {
     setSelectedItems((prevItems) => [...prevItems, item]);
-    onChange && onChange(selectedItems);
   };
 
-  const handleChildrenUnCheck = (item: IItems) => {
+  const handleChildrenUnCheck = (item: ISecondLevelSelectOptions) => {
     setSelectedItems((prevItems) => prevItems.filter((i) => i.id !== item.id));
-    onChange && onChange(selectedItems);
   };
+
+  useEffect(() => {
+    onChange && onChange(selectedItems);
+  }, [selectedItems]);
 
   return (
     <>
-      <div className='mb-2 flex items-center justify-between'>
+      <div className='flex items-center justify-between rounded-sm p-2 hover:bg-accent'>
         <Label className='flex items-center gap-2' htmlFor='terms'>
           <Home className='h-4 w-4' />
           <div className='flex items-center justify-center text-sm font-medium leading-none'>Tất cả nhà đất</div>
@@ -158,12 +65,14 @@ const SecondLevelSelect = (props: ISecondLevelSelectProps) => {
         <Checkbox id='all' className='h-[14px] w-[14px]' />
       </div>
       <div>
-        {fakeData.map((i) => (
+        {items.map((i) => (
           <div key={i.id}>
-            <div className='mb-2 flex items-center justify-between'>
+            <div className='flex items-center justify-between rounded-sm p-2 hover:bg-accent'>
               <Label className='flex items-center gap-2' htmlFor={i.id}>
                 {i.icon && <i.icon className='h-4 w-4' />}
-                <div className='flex items-center justify-center text-sm font-medium leading-none'>{i.label}</div>
+                <div className='mt-[3px] flex items-center justify-center text-sm font-medium leading-none'>
+                  {i.label}
+                </div>
               </Label>
               <Checkbox
                 id={i.id}
@@ -175,7 +84,7 @@ const SecondLevelSelect = (props: ISecondLevelSelectProps) => {
               />
             </div>
             {i?.children?.map((el) => (
-              <div className='mb-2 flex items-center justify-between' key={el.id}>
+              <div className='flex items-center justify-between rounded-sm p-2 hover:bg-accent' key={el.id}>
                 <Label className='flex items-center gap-2' htmlFor={el.id}>
                   <div className='h-4 w-4' />
                   <div className='flex items-center justify-center text-sm font-medium leading-none'>{el.label}</div>

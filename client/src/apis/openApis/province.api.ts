@@ -1,4 +1,4 @@
-import { ICommuneResponse, IDistrictResponse, IProvinceResponse } from '@/types/provinces.type';
+import { ICommuneResponse, IDistrictResponse, IProvinceResponse } from '@/types/search.type';
 import http from '@/utils/http';
 
 const baseUrl = import.meta.env.VITE_PROVINCE_OPEN_API;

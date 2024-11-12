@@ -2,7 +2,8 @@ import SecondLevelSelect from '@/components/common/secondLevelSeclect/SecondLeve
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
-import { motion, AnimatePresence } from 'framer-motion';
+import { postTypes } from '@/constants/function/filters';
+import { motion } from 'framer-motion';
 import { ChevronDown, X } from 'lucide-react';
 import { useState } from 'react';
 
@@ -27,15 +28,15 @@ const Type = () => {
           <div className='py-4'>
             <div className='relative mb-2 flex items-center justify-center px-4'>
               <span className='text-base font-semibold'>Loại nhà đất</span>
-              <button className='absolute right-0' onClick={() => setIsOpen(false)}>
+              <button className='absolute right-4' onClick={() => setIsOpen(false)}>
                 <X size={14} />
               </button>
             </div>
             <Separator />
 
-            <ScrollArea className='h-52'>
-              <div className='mt-4 px-4'>
-                <SecondLevelSelect />
+            <ScrollArea className='h-64'>
+              <div className='mt-4 px-2'>
+                <SecondLevelSelect items={postTypes} onChange={(value) => console.log(value)} />
               </div>
             </ScrollArea>
           </div>
