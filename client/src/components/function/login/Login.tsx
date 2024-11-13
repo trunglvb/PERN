@@ -14,7 +14,7 @@ import { IAddUserBody } from '@/types/user.type';
 import authApi from '@/apis/auth.api';
 
 interface ILoginProps {
-  handleCloseDialog: () => void;
+  handleCloseDialog?: () => void;
 }
 const Login = (props: ILoginProps) => {
   const { handleCloseDialog } = props;
@@ -28,7 +28,7 @@ const Login = (props: ILoginProps) => {
       const { user } = response.data.data;
       saveProfileToLocalStorage(user!);
       toast.success(response.data.message);
-      handleCloseDialog();
+      handleCloseDialog!();
       setIsAuthenticated(true);
     }
   });
@@ -57,7 +57,7 @@ const Login = (props: ILoginProps) => {
   });
 
   return (
-    <div className='grid grid-cols-10'>
+    <div className='grid max-w-[900px] grid-cols-10'>
       <div className='col-span-4 grid place-items-center'>
         <img src={bannerLogin} alt='' className='w-full object-contain' />
       </div>

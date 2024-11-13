@@ -1,4 +1,7 @@
 const path = {
+  auth: {
+    login: '/login'
+  },
   publics: {
     home: '/',
     news: '/tin-tuc',
@@ -11,7 +14,7 @@ const path = {
     managerPost: '/thanh-vien/danh-sach-tin',
     draftPost: '/thanh-vien/tin-nhap',
     updateAccount: '/thanh-vien/cap-nhat-thong-tin',
-    managerBalance: '/thanh-vien/quan-ly-tai-chinh',
+    managerFinance: '/thanh-vien/quan-ly-tai-chinh',
     deposit: '/thanh-vien/nap-tien',
     paymentHistory: '/thanh-vien/lich-su-giao-dich'
   }

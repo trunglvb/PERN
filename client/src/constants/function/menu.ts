@@ -51,17 +51,22 @@ const menu: IMenu[] = [
     label: 'Quản lý tài chính',
     icon: BadgeDollarSign,
     hasSub: true,
-    path: path.users.managerBalance,
+    path: path.users.managerFinance,
     subs: [
       {
         id: 33,
         label: 'Thông tin số dư',
-        path: path.users.managerBalance
+        path: path.users.managerFinance
       },
       {
         id: 34,
         label: 'Lịch sử giao dịch',
-        path: path.users.managerBalance
+        path: path.users.paymentHistory
+      },
+      {
+        id: 34,
+        label: 'Nạp tiền',
+        path: path.users.deposit
       }
     ]
   },

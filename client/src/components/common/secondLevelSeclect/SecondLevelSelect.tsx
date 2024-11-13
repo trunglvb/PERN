@@ -2,8 +2,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { ISecondLevelSelectOptions } from '@/types/search.type';
 import { Home } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { ControllerRenderProps } from 'react-hook-form';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
 interface ISecondLevelSelectProps {
   items: ISecondLevelSelectOptions[];
@@ -11,7 +10,11 @@ interface ISecondLevelSelectProps {
   defaulValue?: object;
 }
 
-const SecondLevelSelect = (props: ISecondLevelSelectProps) => {
+interface SecondLevelSelectRef {
+  resetSelection: () => void;
+}
+
+const SecondLevelSelect = forwardRef<SecondLevelSelectRef, ISecondLevelSelectProps>((props, ref) => {
   const { onChange, items, defaulValue } = props;
   const [selectedItems, setSelectedItems] = useState<ISecondLevelSelectOptions[]>(
     (defaulValue as ISecondLevelSelectOptions[]) ?? []
@@ -60,8 +63,12 @@ const SecondLevelSelect = (props: ISecondLevelSelectProps) => {
     onChange && onChange(selectedItems);
   }, [selectedItems]);
 
+  useImperativeHandle(ref, () => ({
+    resetSelection: () => setSelectedItems([])
+  }));
+
   return (
-    <>
+    <div>
       <div className='flex items-center justify-between rounded-sm p-2 hover:bg-accent'>
         <Label className='flex items-center gap-2' htmlFor='terms'>
           <Home className='h-4 w-4' />
@@ -114,8 +121,8 @@ const SecondLevelSelect = (props: ISecondLevelSelectProps) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
-};
+});
 
 export default SecondLevelSelect;
