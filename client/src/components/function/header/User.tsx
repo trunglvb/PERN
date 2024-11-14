@@ -29,13 +29,7 @@ const User = () => {
           <ChevronDown className='h-4 w-4' />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='min-w-[220px] rounded-lg shadow-lg'>
-        <div className='rounded-t-md bg-main/90 p-4 text-white'>
-          <h4 className='font-bold'>Gói Hội viên</h4>
-          <p className='text-xs'>Tiết kiệm đến 30% chi phí so với đăng tin/đẩy tin lẻ</p>
-          <button className='mt-2 rounded-md bg-white px-4 py-1 text-xs text-main'>Tìm hiểu thêm</button>
-        </div>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent className='min-w-[220px] rounded-lg shadow-lg' align='end'>
         {menu.map((item) => (
           <DropdownMenuItem asChild key={item.id}>
             <Link to={item.path} className='flex cursor-pointer items-center'>

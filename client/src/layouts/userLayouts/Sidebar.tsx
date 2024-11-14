@@ -1,13 +1,5 @@
 import { AppSidebar } from '@/components/function/sidebars/appSidebar';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator
-} from '@/components/ui/breadcrumb';
-import { Input } from '@/components/ui/input';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
@@ -25,11 +17,7 @@ const UserSideBar = () => {
                 <Breadcrumb>
                   <BreadcrumbList>
                     <BreadcrumbItem className='hidden md:block'>
-                      <BreadcrumbLink href='#'>Building Your Application</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className='hidden md:block' />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                      <BreadcrumbLink href='#'>batdongsan.com</BreadcrumbLink>
                     </BreadcrumbItem>
                   </BreadcrumbList>
                 </Breadcrumb>

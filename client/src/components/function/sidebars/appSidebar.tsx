@@ -1,22 +1,34 @@
 import * as React from 'react';
 import {
   AudioWaveform,
+  BadgeDollarSign,
   BookOpen,
   Bot,
+  ChartPie,
   Command,
   Frame,
   GalleryVerticalEnd,
+  Home,
+  List,
   Map,
   PieChart,
   Settings2,
-  SquareTerminal
+  SquareTerminal,
+  UserPen
 } from 'lucide-react';
 
 import NavMain from './navMain';
-import NavProjects from './navProjects';
 import NavUser from './navUser';
-import TeamSwitcher from './teamSwitcher';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenuButton,
+  SidebarRail
+} from '@/components/ui/sidebar';
+import path from '@/constants/common/path';
+import { Link } from 'react-router-dom';
 
 // This is sample data.
 const data = {
@@ -25,125 +37,64 @@ const data = {
     email: 'm@example.com',
     avatar: '/avatars/shadcn.jpg'
   },
-  teams: [
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise'
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup'
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      plan: 'Free'
-    }
-  ],
   navMain: [
     {
-      title: 'Playground',
-      url: '#',
-      icon: SquareTerminal,
-      isActive: true,
+      title: 'Tổng quan',
+      icon: ChartPie,
+      url: path.users.general
+    },
+    {
+      title: 'Quản lý tin đăng',
+      url: path.users.managerPost,
+      icon: List,
       items: [
         {
-          title: 'History',
-          url: '#'
+          title: 'Đăng mới',
+          url: path.users.createPost
         },
         {
-          title: 'Starred',
-          url: '#'
+          title: 'Danh sách tin',
+          url: path.users.managerPost
         },
         {
-          title: 'Settings',
-          url: '#'
+          title: 'Tin nháp',
+          url: path.users.draftPost
         }
       ]
     },
     {
-      title: 'Models',
-      url: '#',
-      icon: Bot,
+      title: 'Quản lý tài chính',
+      url: path.users.managerFinance,
+      icon: BadgeDollarSign,
       items: [
         {
-          title: 'Genesis',
-          url: '#'
+          title: 'Thông tin số dư',
+          url: path.users.managerFinance
         },
         {
-          title: 'Explorer',
-          url: '#'
+          title: 'Lịch sử giao dịch',
+          url: path.users.paymentHistory
         },
         {
-          title: 'Quantum',
-          url: '#'
+          title: 'Nạp tiền',
+          url: path.users.deposit
         }
       ]
     },
     {
-      title: 'Documentation',
-      url: '#',
-      icon: BookOpen,
+      title: 'Thông tin cá nhân',
+      url: path.users.updateAccount,
+      icon: UserPen,
       items: [
         {
-          title: 'Introduction',
-          url: '#'
+          title: 'Chỉnh sửa thông tin cá nhân',
+          url: path.users.updateAccount
         },
         {
-          title: 'Get Started',
-          url: '#'
-        },
-        {
-          title: 'Tutorials',
-          url: '#'
-        },
-        {
-          title: 'Changelog',
-          url: '#'
+          title: 'Cài đặt tài khoản',
+          url: path.users.updateAccount
         }
       ]
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#'
-        },
-        {
-          title: 'Team',
-          url: '#'
-        },
-        {
-          title: 'Billing',
-          url: '#'
-        },
-        {
-          title: 'Limits',
-          url: '#'
-        }
-      ]
-    }
-  ],
-  projects: [
-    {
-      name: 'Design Engineering',
-      url: '#',
-      icon: Frame
-    },
-    {
-      name: 'Sales & Marketing',
-      url: '#',
-      icon: PieChart
-    },
-    {
-      name: 'Travel',
-      url: '#',
-      icon: Map
     }
   ]
 };
@@ -152,11 +103,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <Link to={path.publics.home}>
+          <SidebarMenuButton
+            size='lg'
+            className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
+          >
+            <div className='flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground'>
+              <Home className='size-4' />
+            </div>
+            <div className='grid flex-1 text-left text-sm leading-tight'>
+              <span className='truncate font-semibold'>Trang chủ</span>
+              <span className='truncate text-xs'>batdongsan.com</span>
+            </div>
+            {/* <ChevronsUpDown className='ml-auto' /> */}
+          </SidebarMenuButton>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
