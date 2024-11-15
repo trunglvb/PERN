@@ -1,14 +1,16 @@
 import { Separator } from '@/components/ui/separator';
 import { provincesSlider } from '@/constants/function/utils';
 import { IProvinceResponse } from '@/types/search.type';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import useSearchStore from '@/zustand/useSearchStore';
+import React, { Dispatch, SetStateAction } from 'react';
 
 interface IProvincesProps {
   provinces: IProvinceResponse[];
+  setIsShowSearchDetails: Dispatch<SetStateAction<boolean>>;
 }
 const ProvincesFilter = (props: IProvincesProps) => {
-  const { provinces } = props;
+  const { provinces, setIsShowSearchDetails } = props;
+  const { setSearchParams } = useSearchStore();
   const provincesFilter = provinces?.map((i) => ({
     idProvince: i.idProvince,
     name: i?.name.replace(/^(Tỉnh|Thành phố)\s+/, ''),
@@ -38,13 +40,21 @@ const ProvincesFilter = (props: IProvincesProps) => {
       <div className='mb-2 mt-4 text-xs font-semibold text-gray-400'>Tất cả tỉnh thành</div>
       <div className='grid grid-cols-6 '>
         {provincesFilter?.map((i) => (
-          <Link
+          <button
             key={i.idProvince}
             className='flex cursor-pointer items-center justify-start rounded-sm p-[6px] text-sm hover:bg-[#F2F2F2]'
-            to={`/${i.idProvince}`}
+            onClick={() => {
+              setSearchParams({
+                province: {
+                  id: i.idProvince,
+                  name: i.fullName
+                }
+              });
+              setIsShowSearchDetails(false);
+            }}
           >
             {i.name}
-          </Link>
+          </button>
         ))}
       </div>
     </div>

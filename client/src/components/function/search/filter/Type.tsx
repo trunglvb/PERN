@@ -16,7 +16,6 @@ import TooltipOverflow from '@/components/common/tooltipOverflow';
 const Type = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const selectRef = useRef<{ resetSelection(): void }>(null);
-
   const form = useForm<IPostTypesSchemaType>({
     resolver: zodResolver(postTypesSchema),
     defaultValues: {

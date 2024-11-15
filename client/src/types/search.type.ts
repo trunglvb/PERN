@@ -17,7 +17,7 @@ export interface ICommuneResponse {
   idCommune: string;
 }
 
-export interface ISecondLevelSelectOptions {
+export type ISecondLevelSelectOptions = {
   id: string;
   label: string;
   icon?: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>;
@@ -27,4 +27,4 @@ export interface ISecondLevelSelectOptions {
     parentId?: string;
     label: string;
   }[];
-}
+};

@@ -11,6 +11,7 @@ import ProvincesFilter from './Provinces';
 import Price from './filter/Price';
 import Size from './filter/Size';
 import Type from './filter/Type';
+import useSearchStore from '@/zustand/useSearchStore';
 
 const tabTypes = [
   {
@@ -26,6 +27,7 @@ const SearchFilter = () => {
   const wrapRef = useRef(null);
   const childRef = useRef(null);
   const [isShowSearchDetails, setIsShowSearchDetails] = useState<boolean>(false);
+  const { searchParams } = useSearchStore();
 
   //outside click
   useOutsideAlerter(wrapRef, setIsShowSearchDetails, false, childRef);
@@ -54,7 +56,6 @@ const SearchFilter = () => {
               className=' relative min-h-32 space-y-4 rounded-md rounded-tl-none bg-black/60 p-4 text-sm text-white'
             >
               <div className='relative'>
-                {' '}
                 <div
                   className='absolute z-10 w-full items-center rounded-md bg-white text-primary shadow-lg'
                   ref={wrapRef}
@@ -79,7 +80,7 @@ const SearchFilter = () => {
                       <div className='flex h-10 items-center p-4'>
                         <button className='flex w-full items-center gap-2' onClick={() => setIsShowSearchDetails(true)}>
                           <Search className='h-4 w-4' />
-                          <span>Trên toàn quốc</span>
+                          <span>{searchParams?.province?.name ?? 'Trên toàn quốc'}</span>
                         </button>
                         <Button className='h-full py-4 text-sm '>Tìm kiếm</Button>
                       </div>
@@ -91,12 +92,12 @@ const SearchFilter = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.3 }}
                         className='z-10 overflow-hidden'
                         ref={childRef}
                       >
                         <Separator />
-                        <ProvincesFilter provinces={provinces?.data!} />
+                        <ProvincesFilter provinces={provinces?.data!} setIsShowSearchDetails={setIsShowSearchDetails} />
                       </motion.div>
                     )}
                   </AnimatePresence>
