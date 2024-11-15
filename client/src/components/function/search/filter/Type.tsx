@@ -2,7 +2,7 @@ import SecondLevelSelect from '@/components/common/secondLevelSeclect/SecondLeve
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
-import { postTypes } from '@/constants/function/filters';
+import { postTypes } from '@/constants/function/utils';
 import { IPostTypesSchemaType, postTypesSchema } from '@/schemas/function.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';

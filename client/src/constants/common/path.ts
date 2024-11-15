@@ -14,6 +14,7 @@ const path = {
     managerPost: '/thanh-vien/danh-sach-tin',
     draftPost: '/thanh-vien/tin-nhap',
     updateAccount: '/thanh-vien/cap-nhat-thong-tin',
+    settingAccount: '/thanh-vien/cai-dat-tai-khoan',
     managerFinance: '/thanh-vien/quan-ly-tai-chinh',
     deposit: '/thanh-vien/nap-tien',
     paymentHistory: '/thanh-vien/lich-su-giao-dich'

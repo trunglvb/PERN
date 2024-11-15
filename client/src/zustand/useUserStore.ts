@@ -1,5 +1,5 @@
 import { IUser } from '@/types/user.type';
-import { getAccessTokenFromLocalStorage } from '@/utils/utils';
+import { getAccessTokenFromLocalStorage, getProfileFromLocalStorage } from '@/utils/utils';
 import { create } from 'zustand';
 
 type State = {
@@ -15,7 +15,7 @@ type Action = {
 
 const useUserStore = create<State & Action>((set, _get) => ({
   isAuthenticated: Boolean(getAccessTokenFromLocalStorage()),
-  profile: null,
+  profile: getProfileFromLocalStorage(),
   setIsAuthenticated: (value: boolean) => set(() => ({ isAuthenticated: value })),
   setProfile: (profile: IUser) => set(() => ({ profile: profile })),
   resetUserState: () => set(() => ({ isAuthenticated: false, profile: null }))

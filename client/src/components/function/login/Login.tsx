@@ -12,13 +12,15 @@ import useUserStore from '@/zustand/useUserStore';
 import { toast } from 'sonner';
 import { IAddUserBody } from '@/types/user.type';
 import authApi from '@/apis/auth.api';
+import { useNavigate } from 'react-router-dom';
+import path from '@/constants/common/path';
 
 interface ILoginProps {
   handleCloseDialog?: () => void;
 }
 const Login = (props: ILoginProps) => {
-  const { handleCloseDialog } = props;
-  const { setIsAuthenticated } = useUserStore();
+  const navigate = useNavigate();
+  const { setIsAuthenticated, setProfile } = useUserStore();
   const [isShowFormSetup, setIsShowFormSetup] = useState<boolean>(false);
   const [userInfo, setUserInfo] = useState<IUserResponseFromGoogle>();
 
@@ -27,9 +29,11 @@ const Login = (props: ILoginProps) => {
     onSuccess: (response) => {
       const { user } = response.data.data;
       saveProfileToLocalStorage(user!);
-      toast.success(response.data.message);
-      handleCloseDialog!();
       setIsAuthenticated(true);
+      setProfile(user!);
+      toast.success(response.data.message);
+      props?.handleCloseDialog && props?.handleCloseDialog();
+      navigate(path.publics.home);
     }
   });
 

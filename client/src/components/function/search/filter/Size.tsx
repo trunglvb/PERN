@@ -2,7 +2,7 @@ import RangeFilter from '@/components/common/rangeFilter';
 import { useForm } from 'react-hook-form';
 import { ISizeSchemaType, sizeSchema } from '@/schemas/function.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { sizes } from '@/constants/function/prices';
+import { sizes } from '@/constants/function/utils';
 
 const defaultSize = {
   min: 0,

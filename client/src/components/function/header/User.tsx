@@ -7,12 +7,15 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Link } from 'react-router-dom';
 import { ChevronDown, LogOut } from 'lucide-react';
-import menu from '@/constants/function/menu';
+import { menu } from '@/constants/function/menu';
 import authApi from '@/apis/auth.api';
 import { useMutation } from '@tanstack/react-query';
 import { clearLocalStorage } from '@/utils/utils';
+import useUserStore from '@/zustand/useUserStore';
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
 
 const User = () => {
+  const { profile } = useUserStore();
   const logoutMutation = useMutation({
     mutationFn: authApi.logoutAccount,
     onSuccess: () => {
@@ -24,8 +27,10 @@ const User = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild className='focus:outline-none'>
         <button className='flex items-center'>
-          <span className='mr-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200'>L</span>
-          <span className='mr-1 text-sm font-semibold'>Trung Lê</span>
+          <Avatar className='mr-2 flex h-8 w-8 items-center justify-center rounded-full'>
+            <AvatarImage src={profile?.avatar} alt={profile?.fullname} />
+          </Avatar>
+          <span className='mr-1 text-sm font-semibold'>{profile?.fullname}</span>
           <ChevronDown className='h-4 w-4' />
         </button>
       </DropdownMenuTrigger>

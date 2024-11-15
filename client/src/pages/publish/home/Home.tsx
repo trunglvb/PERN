@@ -1,7 +1,6 @@
 import Banner from '@/components/function/banner';
 
-import carousels from '@/constants/function/carousel';
-
+import { carousels } from '@/constants/function/utils';
 const Home = () => {
   return (
     <div>

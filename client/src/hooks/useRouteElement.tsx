@@ -113,6 +113,14 @@ const useRouteElement = () => {
             </UserLayout>
           )
         },
+        {
+          path: path.users.settingAccount,
+          element: (
+            <UserLayout>
+              <Personals />
+            </UserLayout>
+          )
+        },
 
         //finance
         {

@@ -2,7 +2,7 @@ import RangeFilter from '@/components/common/rangeFilter';
 import { useForm } from 'react-hook-form';
 import { IPriceSchemaType, priceSchema } from '@/schemas/function.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { prices } from '@/constants/function/prices';
+import { prices } from '@/constants/function/utils';
 
 const defaultPrice = {
   min: 0,

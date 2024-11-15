@@ -1,5 +1,5 @@
 import { Separator } from '@/components/ui/separator';
-import provincesSlider from '@/constants/function/province';
+import { provincesSlider } from '@/constants/function/utils';
 import { IProvinceResponse } from '@/types/search.type';
 import React from 'react';
 import { Link } from 'react-router-dom';

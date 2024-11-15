@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { FieldValues, UseFormReturn, Path, PathValue } from 'react-hook-form';
 import { Slider } from '@/components/ui/slider';
-import { prices } from '@/constants/function/prices';
+import { prices } from '@/constants/function/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import FormInputNumber from '@/components/common/inputNumber/FormInputNumber';
 import { motion } from 'framer-motion';

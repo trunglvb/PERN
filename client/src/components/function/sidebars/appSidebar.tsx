@@ -1,21 +1,5 @@
 import * as React from 'react';
-import {
-  AudioWaveform,
-  BadgeDollarSign,
-  BookOpen,
-  Bot,
-  ChartPie,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Home,
-  List,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-  UserPen
-} from 'lucide-react';
+import { Home } from 'lucide-react';
 
 import NavMain from './navMain';
 import NavUser from './navUser';
@@ -29,74 +13,10 @@ import {
 } from '@/components/ui/sidebar';
 import path from '@/constants/common/path';
 import { Link } from 'react-router-dom';
+import { navMain } from '@/constants/function/menu';
 
-// This is sample data.
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg'
-  },
-  navMain: [
-    {
-      title: 'Tổng quan',
-      icon: ChartPie,
-      url: path.users.general
-    },
-    {
-      title: 'Quản lý tin đăng',
-      url: path.users.managerPost,
-      icon: List,
-      items: [
-        {
-          title: 'Đăng mới',
-          url: path.users.createPost
-        },
-        {
-          title: 'Danh sách tin',
-          url: path.users.managerPost
-        },
-        {
-          title: 'Tin nháp',
-          url: path.users.draftPost
-        }
-      ]
-    },
-    {
-      title: 'Quản lý tài chính',
-      url: path.users.managerFinance,
-      icon: BadgeDollarSign,
-      items: [
-        {
-          title: 'Thông tin số dư',
-          url: path.users.managerFinance
-        },
-        {
-          title: 'Lịch sử giao dịch',
-          url: path.users.paymentHistory
-        },
-        {
-          title: 'Nạp tiền',
-          url: path.users.deposit
-        }
-      ]
-    },
-    {
-      title: 'Thông tin cá nhân',
-      url: path.users.updateAccount,
-      icon: UserPen,
-      items: [
-        {
-          title: 'Chỉnh sửa thông tin cá nhân',
-          url: path.users.updateAccount
-        },
-        {
-          title: 'Cài đặt tài khoản',
-          url: path.users.updateAccount
-        }
-      ]
-    }
-  ]
+  navMain: navMain
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -123,7 +43,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

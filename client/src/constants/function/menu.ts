@@ -1,20 +1,8 @@
-import { ChartPie, LucideProps, List, UserPen, BadgeDollarSign } from 'lucide-react';
-import { ForwardRefExoticComponent, RefAttributes } from 'react';
+import { ChartPie, List, UserPen, BadgeDollarSign } from 'lucide-react';
 import path from '../common/path';
+import { IMenu } from '@/types/nav.type';
 
-interface IMenu {
-  id: number;
-  label: string;
-  icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>;
-  hasSub: boolean;
-  subs?: {
-    id: number;
-    label: string;
-    path: string;
-  }[];
-  path: string;
-}
-const menu: IMenu[] = [
+export const menu: IMenu[] = [
   {
     id: 1,
     label: 'Tổng quan',
@@ -91,4 +79,63 @@ const menu: IMenu[] = [
   }
 ];
 
-export default menu;
+export const navMain = [
+  {
+    title: 'Tổng quan',
+    icon: ChartPie,
+    url: path.users.general
+  },
+  {
+    title: 'Quản lý tin đăng',
+    url: path.users.managerPost,
+    icon: List,
+    items: [
+      {
+        title: 'Đăng mới',
+        url: path.users.createPost
+      },
+      {
+        title: 'Danh sách tin',
+        url: path.users.managerPost
+      },
+      {
+        title: 'Tin nháp',
+        url: path.users.draftPost
+      }
+    ]
+  },
+  {
+    title: 'Quản lý tài chính',
+    url: path.users.managerFinance,
+    icon: BadgeDollarSign,
+    items: [
+      {
+        title: 'Thông tin số dư',
+        url: path.users.managerFinance
+      },
+      {
+        title: 'Lịch sử giao dịch',
+        url: path.users.paymentHistory
+      },
+      {
+        title: 'Nạp tiền',
+        url: path.users.deposit
+      }
+    ]
+  },
+  {
+    title: 'Thông tin cá nhân',
+    url: path.users.updateAccount,
+    icon: UserPen,
+    items: [
+      {
+        title: 'Chỉnh sửa thông tin cá nhân',
+        url: path.users.updateAccount
+      },
+      {
+        title: 'Cài đặt tài khoản',
+        url: path.users.settingAccount
+      }
+    ]
+  }
+];
