@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import TooltipOverflow from '@/components/common/tooltipOverflow';
+import useSearchStore from '@/zustand/useSearchStore';
 
 const Type = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -24,11 +25,20 @@ const Type = () => {
   });
   const { handleSubmit, watch, reset } = form;
   const currentValue = watch();
-  const label =
-    currentValue?.categories.length > 0 ? currentValue?.categories.map((i) => i.label).join(' ,') : 'Loại nhà đất';
+  const [label, setLabel] = useState<string>('Loại nhà đất');
+  const { setSearchParams } = useSearchStore();
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    const label =
+      currentValue?.categories.length > 0 ? currentValue?.categories.map((i) => i.label).join(' ,') : 'Loại nhà đất';
+    setLabel(label);
+    setIsOpen(false);
+    setSearchParams({
+      categories: data?.categories?.map((i) => ({
+        id: i.id,
+        label: i.label
+      }))
+    });
   });
 
   return (
