@@ -29,7 +29,7 @@ const Price = () => {
       schema_range='price'
       defaultRange={defaultPrice}
       onChange={(value) => {
-        console.log(value);
+        console.log('value', value);
       }}
       unit='price'
       minValueLabel='Giá thấp nhất'

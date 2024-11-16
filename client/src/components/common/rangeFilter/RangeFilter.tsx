@@ -116,6 +116,7 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
       setValue(schema_max, max as IPathValue);
     }
     setIsOpen(false);
+    convertLabelText(currentValue[schema_min], currentValue[schema_max]);
     onChange && onChange(data);
   });
 
@@ -151,10 +152,6 @@ const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {
       setLabelText(`${convertRangeValue(min)} - ${convertRangeValue(max)}`);
     }
   };
-
-  useEffect(() => {
-    convertLabelText(currentValue[schema_min], currentValue[schema_max]);
-  }, [currentValue[schema_min], currentValue[schema_max]]);
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>

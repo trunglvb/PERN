@@ -19,6 +19,7 @@ const Size = () => {
       size: [defaultSize.min, defaultSize.max]
     }
   });
+
   return (
     <RangeFilter
       label='Diện tích'

@@ -22,7 +22,6 @@ const Type = () => {
       categories: []
     }
   });
-
   const { handleSubmit, watch, reset } = form;
   const currentValue = watch();
   const label =
