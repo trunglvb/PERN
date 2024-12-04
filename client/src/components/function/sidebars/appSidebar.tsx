@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Home } from 'lucide-react';
 
-import NavMain from './navMain';
-import NavUser from './navUser';
+import NavMain from './NavMain';
+import NavUser from './NavUser';
 import {
   Sidebar,
   SidebarContent,
@@ -14,6 +14,7 @@ import {
 import path from '@/constants/common/path';
 import { Link } from 'react-router-dom';
 import { navMain } from '@/constants/function/menu';
+import UserBox from './UserBox';
 
 const data = {
   navMain: navMain
@@ -39,7 +40,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuButton>
         </Link>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className='mt-2'>
+        <div className='p-2'>
+          <div className='rounded-lg border bg-[#E7E5E4] p-2 '>
+            <UserBox />
+          </div>
+        </div>
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>

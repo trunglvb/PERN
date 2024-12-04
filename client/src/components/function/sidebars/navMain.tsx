@@ -48,7 +48,11 @@ const NavMain = (props: INavMainProps) => {
                 </CollapsibleTrigger>
               ) : (
                 <Link to={item.url}>
-                  <SidebarMenuButton tooltip={item.title} isActive={item?.url === pathname}>
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    isActive={item?.url === pathname}
+                    className='hover:bg-red-500'
+                  >
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
                   </SidebarMenuButton>
