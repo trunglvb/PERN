@@ -1,3 +1,4 @@
+import { devtools } from 'zustand/middleware';
 import { IUser } from '@/types/user.type';
 import { getAccessTokenFromLocalStorage, getProfileFromLocalStorage } from '@/utils/utils';
 import { create } from 'zustand';
@@ -13,12 +14,14 @@ type Action = {
   resetUserState: () => void;
 };
 
-const useUserStore = create<State & Action>((set, _get) => ({
-  isAuthenticated: Boolean(getAccessTokenFromLocalStorage()),
-  profile: getProfileFromLocalStorage(),
-  setIsAuthenticated: (value: boolean) => set(() => ({ isAuthenticated: value })),
-  setProfile: (profile: IUser) => set(() => ({ profile: profile })),
-  resetUserState: () => set(() => ({ isAuthenticated: false, profile: null }))
-}));
+const useUserStore = create<State & Action>()(
+  devtools((set, _get) => ({
+    isAuthenticated: Boolean(getAccessTokenFromLocalStorage()),
+    profile: getProfileFromLocalStorage(),
+    setIsAuthenticated: (value: boolean) => set(() => ({ isAuthenticated: value })),
+    setProfile: (profile: IUser) => set(() => ({ profile: profile })),
+    resetUserState: () => set(() => ({ isAuthenticated: false, profile: null }))
+  }))
+);
 
 export default useUserStore;

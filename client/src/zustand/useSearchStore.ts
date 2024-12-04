@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 type ISearchParams = {
   categories?: { id: string; label: string }[];
@@ -14,14 +15,16 @@ type Action = {
   setSearchParams: (value: ISearchParams) => void;
 };
 
-const useSearchStore = create<State & Action>((set, _get) => ({
-  searchParams: {
-    categories: [],
-    prices: [],
-    sizes: [],
-    province: null
-  },
-  setSearchParams: (value: ISearchParams) => set(() => ({ searchParams: { ..._get().searchParams, ...value } }))
-}));
+const useSearchStore = create<State & Action>()(
+  devtools((set, _get) => ({
+    searchParams: {
+      categories: [],
+      prices: [],
+      sizes: [],
+      province: null
+    },
+    setSearchParams: (value: ISearchParams) => set(() => ({ searchParams: { ..._get().searchParams, ...value } }))
+  }))
+);
 
 export default useSearchStore;

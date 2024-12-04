@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { IPriceSchemaType, priceSchema } from '@/schemas/function.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { prices } from '@/constants/function/utils';
+import useSearchStore from '@/zustand/useSearchStore';
 
 const defaultPrice = {
   min: 0,
@@ -19,6 +20,7 @@ const Price = () => {
       price: [defaultPrice.min, defaultPrice.max]
     }
   });
+  const { setSearchParams } = useSearchStore();
   return (
     <RangeFilter
       label='Mức giá'
@@ -29,7 +31,9 @@ const Price = () => {
       schema_range='price'
       defaultRange={defaultPrice}
       onChange={(value) => {
-        console.log(value);
+        setSearchParams({
+          prices: value.price
+        });
       }}
       unit='price'
       minValueLabel='Giá thấp nhất'

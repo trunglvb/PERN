@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { ISizeSchemaType, sizeSchema } from '@/schemas/function.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { sizes } from '@/constants/function/utils';
+import useSearchStore from '@/zustand/useSearchStore';
 
 const defaultSize = {
   min: 0,
@@ -19,6 +20,8 @@ const Size = () => {
       size: [defaultSize.min, defaultSize.max]
     }
   });
+  const { setSearchParams } = useSearchStore();
+
   return (
     <RangeFilter
       label='Diện tích'
@@ -29,7 +32,9 @@ const Size = () => {
       schema_range='size'
       defaultRange={defaultSize}
       onChange={(value) => {
-        console.log(value);
+        setSearchParams({
+          sizes: value.size
+        });
       }}
       unit='size'
       minValueLabel='Diện tích nhỏ nhất'
