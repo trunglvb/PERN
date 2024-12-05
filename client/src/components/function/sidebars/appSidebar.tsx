@@ -9,7 +9,8 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenuButton,
-  SidebarRail
+  SidebarRail,
+  useSidebar
 } from '@/components/ui/sidebar';
 import path from '@/constants/common/path';
 import { Link } from 'react-router-dom';
@@ -21,6 +22,8 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { open } = useSidebar();
+  console.log('open', open);
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
@@ -40,12 +43,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuButton>
         </Link>
       </SidebarHeader>
-      <SidebarContent className='mt-2'>
-        <div className='p-2'>
-          <div className='rounded-lg border bg-[#E7E5E4] p-2 '>
-            <UserBox />
+      <SidebarContent className='mt-1'>
+        {open && (
+          <div className='mb-2 px-2'>
+            <div className='rounded-lg border bg-[#E7E5E4] p-2 '>
+              <UserBox />
+            </div>
           </div>
-        </div>
+        )}
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
