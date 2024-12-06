@@ -61,4 +61,4 @@ const ProvincesFilter = (props: IProvincesProps) => {
   );
 };
 
-export default React.memo(ProvincesFilter);
+export default ProvincesFilter;

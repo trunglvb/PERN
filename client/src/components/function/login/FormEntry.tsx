@@ -30,7 +30,7 @@ const FormEntry = (props: IFormEntryProps) => {
       confirmPassword: ''
     }
   });
-  const { handleSubmit, setError, formState, reset } = form;
+  const { handleSubmit, reset } = form;
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
