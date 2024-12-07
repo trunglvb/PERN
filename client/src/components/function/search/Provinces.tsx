@@ -2,7 +2,7 @@ import { Separator } from '@/components/ui/separator';
 import { provincesSlider } from '@/constants/function/utils';
 import { IProvinceResponse } from '@/types/search.type';
 import useSearchStore from '@/zustand/useSearchStore';
-import React, { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 interface IProvincesProps {
   provinces: IProvinceResponse[];

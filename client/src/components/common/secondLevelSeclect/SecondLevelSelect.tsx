@@ -8,6 +8,7 @@ interface ISecondLevelSelectProps {
   items: ISecondLevelSelectOptions[];
   onChange?: (value: ISecondLevelSelectOptions[]) => void;
   defaulValue?: object;
+  label: string;
 }
 
 interface SecondLevelSelectRef {
@@ -15,7 +16,7 @@ interface SecondLevelSelectRef {
 }
 
 const SecondLevelSelect = forwardRef<SecondLevelSelectRef, ISecondLevelSelectProps>((props, ref) => {
-  const { onChange, items, defaulValue } = props;
+  const { onChange, items, defaulValue, label } = props;
   const [selectedItems, setSelectedItems] = useState<ISecondLevelSelectOptions[]>(
     (defaulValue as ISecondLevelSelectOptions[]) ?? []
   );
@@ -72,7 +73,7 @@ const SecondLevelSelect = forwardRef<SecondLevelSelectRef, ISecondLevelSelectPro
       <div className='flex items-center justify-between rounded-sm p-2 hover:bg-accent'>
         <Label className='flex items-center gap-2' htmlFor='terms'>
           <Home className='h-4 w-4' />
-          <div className='flex items-center justify-center text-sm font-medium leading-none'>Tất cả nhà đất</div>
+          <div className='flex items-center justify-center text-sm font-medium leading-none'>{label}</div>
         </Label>
         <Checkbox
           id='all'

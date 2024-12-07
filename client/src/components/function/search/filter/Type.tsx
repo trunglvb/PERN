@@ -78,6 +78,7 @@ const Type = () => {
                         <ScrollArea className='h-72'>
                           <div className='mt-4 px-2'>
                             <SecondLevelSelect
+                              label='Tất cả nhà đất'
                               items={postTypes}
                               onChange={(value) => field.onChange(value)}
                               defaulValue={field.value}
