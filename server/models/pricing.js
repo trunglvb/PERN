@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         values: EnumPricing
       }, // ten cua goi (vang , bac, kim cuong)
       isDisplayImmedialy: DataTypes.BOOLEAN, // exp: tin thuong khong the  hien thi ngay
-      isShowDescription: DataTypes.BOOLEAN, // exp: tin thuong khong hien thi mo ta
+      levelShowDescription: DataTypes.BOOLEAN, // exp: tin thuong khong hien thi mo ta
       priority: DataTypes.INTEGER, // muc do uu tien
       requireScore: DataTypes.INTEGER, // diem ma tai khoan can de len level do
       requireScoreNextLevel: DataTypes.INTEGER, // diem ma tai khoan can de len level tiep theo
