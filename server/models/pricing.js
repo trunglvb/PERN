@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       levelShowDescription: DataTypes.FLOAT, // exp: muc do uu tien hien thi mo ta
       priority: DataTypes.INTEGER, // muc do uu tien
       requireScore: DataTypes.INTEGER, // diem ma tai khoan can de len level do
-      requireScoreNextLevel: DataTypes.BIGINT, // diem ma tai khoan can de len level tiep theo
+      requireScoreNextLevel: DataTypes.INTEGER, // diem ma tai khoan can de len level tiep theo
       price: DataTypes.BIGINT, // gia de nang cap level nay
       expiredDay: DataTypes.INTEGER, // thoi gian het han cua bai dang theo goi,
       imageUrl: DataTypes.STRING // anh dai dien cho goi

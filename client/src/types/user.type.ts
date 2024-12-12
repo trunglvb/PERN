@@ -1,3 +1,5 @@
+import { IPricing } from './pricing.type';
+
 export type IUser = {
   id: number;
   email: string;
@@ -14,6 +16,7 @@ export type IUser = {
   idPricing?: number;
   createdAt?: Date;
   updatedAt?: Date;
+  rPricing: IPricing;
 };
 
 export type IAddUserBody = Pick<IUser, 'email' | 'fullname' | 'avatar' | 'password'>;
