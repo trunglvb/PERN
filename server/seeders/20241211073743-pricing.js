@@ -8,15 +8,15 @@ module.exports = {
      * Add seed commands here.
      */
 
-    await queryInterface.bulkInsert('Pricing', pricings, {});
+    await queryInterface.bulkInsert('Pricings', pricings, {});
   },
 
   async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
      */
+
+    await queryInterface.bulkDelete('Pricings', null, {});
   }
 };

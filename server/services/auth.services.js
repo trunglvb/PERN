@@ -10,11 +10,23 @@ const loginWithGoogle = async (body) => {
   const { email, fullname, avatar, password } = body;
   let user = await db.User.findOne({
     where: { email: email },
-    attributes: { exclude: ['password', 'resetPwdToken', 'resetPwdExpire'] }
+    attributes: { exclude: ['password', 'resetPwdToken', 'resetPwdExpire'] },
+    include: [{ model: db.Pricing, as: 'rPricing', exclude: ['createdAt', 'updatedAt'] }]
   });
   let userId = '';
+  const basePricing = await db.Pricing.findOne({
+    where: {
+      priority: 1
+    }
+  });
   if (!user) {
-    const newUser = await db.User.create({ email, fullname, avatar, password: hashPassword(password) });
+    const newUser = await db.User.create({
+      email,
+      fullname,
+      avatar,
+      password: hashPassword(password),
+      idPricing: basePricing.id
+    });
     if (!newUser) throw new Error('Lỗi tạo mới User');
     user = newUser;
     userId = newUser.id;

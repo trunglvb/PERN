@@ -1,9 +1,3 @@
-const base = require('../../client/src/assets/svg/badge-stock/base.svg');
-const bronze = require('../../client/src/assets/svg/badge-stock/bronze.svg');
-const sliver = require('../../client/src/assets/svg/badge-stock/silver.svg');
-const gold = require('../../client/src/assets/svg/badge-stock/gold.svg');
-const dinamond = require('../../client/src/assets/svg/badge-stock/dinamond.svg');
-
 const EnumPricing = ['Thường', 'Đồng', 'Vàng', 'Bạc', 'Kim cương'];
 const EnumPostStatus = ['Còn trống', 'Đang đàn phám', 'Đã bàn giao'];
 const EnumPropertyTypes = [
@@ -32,7 +26,7 @@ const pricings = [
     requireScoreNextLevel: 200000,
     expiredDay: 1,
     price: 0,
-    imageUrl: base,
+    imageUrl: 'https://i.imghippo.com/files/MhlC3635UME.png',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -45,7 +39,7 @@ const pricings = [
     requireScoreNextLevel: 500000,
     expiredDay: 3,
     price: 200000,
-    imageUrl: bronze,
+    imageUrl: 'https://i.imghippo.com/files/fkrP9663pTg.png',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -58,7 +52,7 @@ const pricings = [
     requireScoreNextLevel: 1000000,
     expiredDay: 7,
     price: 500000,
-    imageUrl: sliver,
+    imageUrl: 'https://i.imghippo.com/files/U7261TD.png',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -71,7 +65,7 @@ const pricings = [
     requireScoreNextLevel: 2000000,
     expiredDay: 10,
     price: 1000000,
-    imageUrl: gold,
+    imageUrl: 'https://i.imghippo.com/files/iib7463WxY.png',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -81,10 +75,10 @@ const pricings = [
     levelShowDescription: 0.5,
     priority: 5,
     requireScore: 2000000,
-    requireScoreNextLevel: NaN,
+    requireScoreNextLevel: 0,
     expiredDay: 10,
     price: 2000000,
-    imageUrl: dinamond,
+    imageUrl: 'https://i.imghippo.com/files/oMh3517Vyw.png',
     createdAt: new Date(),
     updatedAt: new Date()
   }
