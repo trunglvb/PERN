@@ -16,7 +16,8 @@ moduleAlias.addAliases({
   '@routes': `${__dirname}/routes`,
   '@migrations': `${__dirname}/migrations`,
   '@seeders': `${__dirname}/seeders`,
-  '@configs': `${__dirname}/configs`
+  '@configs': `${__dirname}/configs`,
+  '@configs': `${__dirname}/assets`
 });
 
 dotenv.config();

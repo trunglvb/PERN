@@ -1,9 +1,9 @@
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import useUserStore from '@/zustand/useUserStore';
-import baseImage from '@/assets/svg/badge-stock/base.svg';
 import { CircleHelp } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipArrow } from '@radix-ui/react-tooltip';
+import { convertDateTimeNextYear } from '@/utils/utils';
 
 const UserBox = () => {
   const { profile } = useUserStore();
@@ -15,7 +15,7 @@ const UserBox = () => {
         </Avatar>
         <div className='absolute bottom-2 right-3'>
           <img
-            src={baseImage}
+            src={'https://res.cloudinary.com/dmyjgrs7b/image/upload/v1734063381/base_ocbbrm.svg'}
             className='h-5 w-5 rounded-full border-2 border-slate-200 bg-white object-cover p-[2px]'
           />
         </div>
@@ -33,26 +33,21 @@ const UserBox = () => {
                 <TooltipArrow />
                 <div className='flex items-center justify-between'>
                   <span className='text-sm text-zinc-300'>Hạng tài khoản</span>
-                  <span className='text-sm font-medium'>Thường</span>
-                </div>
-
-                <div className='flex items-center justify-between'>
-                  <span className='text-sm text-zinc-300'>Điểm đổi thưởng</span>
-                  <span className='text-sm'>0</span>
+                  <span className='text-sm font-medium'>{profile?.rPricing.name}</span>
                 </div>
 
                 <div className='flex items-center justify-between'>
                   <span className='text-sm text-zinc-300'>Tiền tích lũy</span>
-                  <span className='text-sm'>0 VND</span>
+                  <span className='text-sm'>{profile?.rPricing.price} VND</span>
                 </div>
 
                 <div className='text-wrap text-sm text-zinc-300'>
-                  Cần tích lũy thêm <span className='text-white'>12.000 điểm</span> để lên hạng tiếp theo
-                </div>
-
-                <div className='flex items-center justify-between text-sm text-zinc-300'>
-                  <span>Kỳ xét hạng tiếp theo</span>
-                  <span>05/12/2025</span>
+                  Cần tích lũy thêm <span className='text-white'>{profile?.rPricing.requireScoreNextLevel}</span> để lên
+                  hạng tiếp theo
+                  <div className='flex items-center justify-between text-sm text-zinc-300'>
+                    <span>Kỳ xét hạng tiếp theo</span>
+                    <span>{convertDateTimeNextYear(new Date(profile?.createdAt!))}</span>
+                  </div>
                 </div>
               </TooltipContent>
             </Tooltip>

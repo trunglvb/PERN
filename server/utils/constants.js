@@ -16,6 +16,7 @@ const EnumPropertyTypes = [
 ];
 const EnumListingType = ['Bán', 'Cho thuê'];
 const EnumDirection = ['Đông - Bắc', 'Tây - Nam', 'Đông - Nam', 'Tây - Bắc', 'Đông', 'Tây', 'Nam', 'Bắc'];
+
 const pricings = [
   {
     name: 'Thường',
@@ -26,7 +27,7 @@ const pricings = [
     requireScoreNextLevel: 200000,
     expiredDay: 1,
     price: 0,
-    imageUrl: 'https://i.imghippo.com/files/MhlC3635UME.png',
+    imageUrl: 'https://res.cloudinary.com/dmyjgrs7b/image/upload/v1734063381/base_ocbbrm.svg',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -39,7 +40,7 @@ const pricings = [
     requireScoreNextLevel: 500000,
     expiredDay: 3,
     price: 200000,
-    imageUrl: 'https://i.imghippo.com/files/fkrP9663pTg.png',
+    imageUrl: 'https://res.cloudinary.com/dmyjgrs7b/image/upload/v1734063467/bronze_isaljz.svg',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -52,7 +53,7 @@ const pricings = [
     requireScoreNextLevel: 1000000,
     expiredDay: 7,
     price: 500000,
-    imageUrl: 'https://i.imghippo.com/files/U7261TD.png',
+    imageUrl: 'https://res.cloudinary.com/dmyjgrs7b/image/upload/v1734063497/silver_vram0w.svg',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -65,7 +66,7 @@ const pricings = [
     requireScoreNextLevel: 2000000,
     expiredDay: 10,
     price: 1000000,
-    imageUrl: 'https://i.imghippo.com/files/iib7463WxY.png',
+    imageUrl: 'https://res.cloudinary.com/dmyjgrs7b/image/upload/v1734063523/gold_vq8oxm.svg',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -78,7 +79,7 @@ const pricings = [
     requireScoreNextLevel: 0,
     expiredDay: 10,
     price: 2000000,
-    imageUrl: 'https://i.imghippo.com/files/oMh3517Vyw.png',
+    imageUrl: 'https://res.cloudinary.com/dmyjgrs7b/image/upload/v1734063565/dinamond_gfkap1.svg',
     createdAt: new Date(),
     updatedAt: new Date()
   }

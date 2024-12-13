@@ -60,3 +60,29 @@ export const debounce = (fn: Function, ms = 300) => {
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
 };
+
+export const convertDateTime = (input: Date) => {
+  const date: Date = new Date(input);
+  if (isNaN(date.getTime())) {
+    throw new Error('Invalid date string');
+  }
+  const year: number = date.getFullYear();
+  let month: string = (1 + date.getMonth()).toString();
+  month = month.length > 1 ? month : '0' + month;
+  let day: string = date.getDate().toString();
+  day = day.length > 1 ? day : '0' + day;
+  return `${month}/${day}/${year}`;
+};
+
+export const convertDateTimeNextYear = (input: Date) => {
+  const date: Date = new Date(input);
+  if (isNaN(date.getTime())) {
+    throw new Error('Invalid date string');
+  }
+  const year: number = date.getFullYear();
+  let month: string = (1 + date.getMonth()).toString();
+  month = month.length > 1 ? month : '0' + month;
+  let day: string = date.getDate().toString();
+  day = day.length > 1 ? day : '0' + day;
+  return `${month}/${day}/${year + 1}`;
+};
