@@ -42,7 +42,6 @@
     "@migrations": "./migrations",
     "@seeders": "./seeders",
     "@configs": "./configs",
-    "@services": "./services",
-    "@assets": "./assets"
+    "@services": "./services"
   }
 }

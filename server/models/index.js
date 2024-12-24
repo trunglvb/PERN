@@ -18,6 +18,8 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+//can khai bao truoc , neu khong se khong the tham chieu data tu 2 table
+
 db.User = require('./user')(sequelize, Sequelize.DataTypes);
 db.Post = require('./post')(sequelize, Sequelize.DataTypes);
 db.Pricing = require('./pricing')(sequelize, Sequelize.DataTypes);

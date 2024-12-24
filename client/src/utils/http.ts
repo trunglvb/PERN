@@ -50,11 +50,11 @@ class Http {
       (response) => {
         const { url } = response.config; //goi lai api login neu loi token, path cua api
         if (url === URL_AUTH.LOGIN || url === URL_AUTH.REGISTER || url === URL_AUTH.LOGIN_GOOGLE) {
+          console.log(response.data.data.user);
           this.accessToken = (response.data as IAuthResponse)?.data?.access_token;
           this.refreshToken = (response.data as IAuthResponse)?.data?.refresh_token;
           saveAccessTokenToLocalStorage(this.accessToken);
           saveRefreshTokenToLocalStorage(this.refreshToken);
-          saveProfileToLocalStorage(response.data.data.user);
         } else if (url === URL_AUTH.LOG_OUT) {
           this.accessToken = '';
           this.refreshToken = '';

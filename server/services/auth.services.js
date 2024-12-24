@@ -28,7 +28,11 @@ const loginWithGoogle = async (body) => {
       idPricing: basePricing.id
     });
     if (!newUser) throw new Error('Lỗi tạo mới User');
-    user = newUser;
+    user = await db.User.findOne({
+      where: { email: email },
+      attributes: { exclude: ['password', 'resetPwdToken', 'resetPwdExpire'] },
+      include: [{ model: db.Pricing, as: 'rPricing', exclude: ['createdAt', 'updatedAt'] }]
+    });
     userId = newUser.id;
   } else {
     userId = user.id;
