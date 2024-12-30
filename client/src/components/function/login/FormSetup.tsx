@@ -1,4 +1,4 @@
-import { ISetupPasswordSchemaType, setupPasswordSchema } from '@/schemas/user.schema';
+import { ISetupPasswordSchemaType, setupPasswordSchema } from '@/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';

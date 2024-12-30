@@ -95,6 +95,10 @@
   .popover-w-full {
     width: var(--radix-popover-trigger-width);
   }
+
+  .bg-content {
+    background-color: #f5f5f4;
+  }
 }
 html {
   font-family: 'Questrial', sans-serif;

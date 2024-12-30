@@ -1,4 +1,3 @@
-import { ISecondLevelSelectOptions } from '@/types/search.type';
 import { LucideProps } from 'lucide-react';
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
 import { z } from 'zod';
