@@ -15,7 +15,7 @@ const FormInput = <T extends FieldValues>({
   name,
   placeholder,
   type,
-  classNameInput,
+  classNameInput = 'focus-visible:ring-0 focus-visible:ring-offset-0',
   ...rest
 }: IFormInputProps<T>) => {
   return (
@@ -26,19 +26,9 @@ const FormInput = <T extends FieldValues>({
         <FormItem>
           <FormControl>
             {type === 'password' ? (
-              <PasswordInput
-                {...rest}
-                {...field}
-                placeholder={placeholder as string}
-                className='focus-visible:ring-0 focus-visible:ring-offset-0 '
-              />
+              <PasswordInput {...rest} {...field} placeholder={placeholder as string} className={classNameInput} />
             ) : (
-              <Input
-                {...rest}
-                {...field}
-                placeholder={placeholder as string}
-                className='focus-visible:ring-0 focus-visible:ring-offset-0'
-              />
+              <Input {...rest} {...field} placeholder={placeholder as string} className={classNameInput} />
             )}
           </FormControl>
           <FormMessage />

@@ -20,7 +20,7 @@ const InputFile = (props: IInputFileProps) => {
     if (imageUrl) {
       setPreViewImage(imageUrl);
     }
-  }, []);
+  }, [imageUrl]);
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileUpload = event.target.files?.[0];
