@@ -1,11 +1,11 @@
 import userApi from '@/apis/user.api';
 import FormInput from '@/components/common/input';
 import InputFile from '@/components/common/inputFile';
+import MultiFileUpload from '@/components/common/multiFileUpload';
 import { Form } from '@/components/ui/form';
 import userSchema, { IUserSettingSchemaType } from '@/schemas/user.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
-import { UploadIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
