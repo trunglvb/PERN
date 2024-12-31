@@ -3,7 +3,6 @@ import FormInput from '@/components/common/input';
 import InputFile from '@/components/common/inputFile';
 import { Form } from '@/components/ui/form';
 import userSchema, { IUserSettingSchemaType } from '@/schemas/user.schema';
-import useUserStore from '@/zustand/useUserStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -14,6 +13,12 @@ const Personals = () => {
     queryKey: ['profile'],
     queryFn: userApi.getUser
   });
+
+  // post example
+  // const { data: userData } = useQuery({
+  //   queryKey: ['profile'],
+  //   queryFn: () => userApi.getUserPost({ id: profile?.id.toString()! })
+  // });
 
   const user = userData?.data?.data;
   const form = useForm<IUserSettingSchemaType>({
@@ -37,8 +42,8 @@ const Personals = () => {
   }, [user, setValue]);
 
   return (
-    <div className='mx-auto'>
-      <div className='w-[750px] rounded-md border p-4'>
+    <div className='w-full'>
+      <div className='mx-auto rounded-md border p-4 md:w-[750px]'>
         <div className='text-base font-semibold'>Thông tin cá nhân</div>
         <div className='my-4 flex items-center justify-center'>
           <InputFile imageUrl={avatar} />
