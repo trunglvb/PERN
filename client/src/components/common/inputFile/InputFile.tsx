@@ -7,12 +7,14 @@ import { X } from 'lucide-react';
 const maxSizeUpload = 1048576;
 
 interface IInputFileProps {
-  imageUrl?: string;
-  onChange?: (file?: File) => void;
+  imageUrl?: string; //default url
+  onChange?: (file?: File) => void; //get file when upload
+  classNameImage?: string; //custom image style
+  children?: React.ReactElement; //use for custom upload ui, default is circle
 }
 
 const InputFile = (props: IInputFileProps) => {
-  const { onChange, imageUrl } = props;
+  const { onChange, imageUrl, classNameImage = 'mx-auto h-28 w-28', children } = props;
   const [previewImage, setPreViewImage] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -54,7 +56,10 @@ const InputFile = (props: IInputFileProps) => {
         }}
         onChange={onFileChange}
       />
-      {previewImage ? (
+
+      {children ? (
+        <DivButton onClick={handleUploadImage}>{children}</DivButton>
+      ) : previewImage ? (
         <div className='mx-auto'>
           <div className='relative'>
             <img src={previewImage} alt='preview' className='h-28 w-28 rounded-full object-cover' />
@@ -66,7 +71,7 @@ const InputFile = (props: IInputFileProps) => {
           </div>
         </div>
       ) : (
-        <DivButton className='mx-auto h-28 w-28' onClick={handleUploadImage}>
+        <DivButton className={classNameImage} onClick={handleUploadImage}>
           <div className='flex h-full w-full flex-col items-center justify-center gap-2 rounded-full border-2 border-dashed border-gray-300'>
             <Camera className='h-6 w-6 text-gray-400' />
             <span className='text-sm text-gray-400'>Tải ảnh</span>

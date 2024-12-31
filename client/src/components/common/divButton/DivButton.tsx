@@ -1,12 +1,12 @@
 import { FC, ReactNode } from 'react';
 
-interface CustomDivProps {
+interface IDivButtonProps {
   children?: ReactNode;
   onClick?: () => void;
   className?: string;
 }
 
-const DivButton: FC<CustomDivProps> = ({ children, onClick, className = '' }) => {
+const DivButton: FC<IDivButtonProps> = ({ children, onClick, className = '' }) => {
   return (
     <div role='presentation' className={`cursor-pointer text-sm font-semibold ${className}`} onClick={onClick}>
       {children}

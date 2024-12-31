@@ -5,6 +5,7 @@ import { Form } from '@/components/ui/form';
 import userSchema, { IUserSettingSchemaType } from '@/schemas/user.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
+import { UploadIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -26,7 +27,9 @@ const Personals = () => {
     defaultValues: {
       fullname: '',
       email: '',
-      phone: ''
+      phone: '',
+      balance: 0,
+      score: 0
     }
     // mode: 'onChange'
   });

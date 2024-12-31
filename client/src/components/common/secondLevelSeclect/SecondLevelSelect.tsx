@@ -5,9 +5,9 @@ import { Home } from 'lucide-react';
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
 interface ISecondLevelSelectProps {
-  items: ISecondLevelSelectOptions[];
-  onChange?: (value: ISecondLevelSelectOptions[]) => void;
-  defaulValue?: object;
+  items: ISecondLevelSelectOptions[]; //list filter
+  onChange?: (value: ISecondLevelSelectOptions[]) => void; //get checked
+  defaulValue?: object; // default checked
   label: string;
 }
 

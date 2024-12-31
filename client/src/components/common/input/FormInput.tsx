@@ -5,8 +5,8 @@ import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 import PasswordInput from '../passwordInput';
 
 interface IFormInputProps<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
-  formControl: UseFormReturn<T>;
-  name: Path<T>;
+  formControl: UseFormReturn<T>; //pass from react hook form
+  name: Path<T>; //field
   classNameInput?: string;
 }
 

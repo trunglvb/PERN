@@ -29,16 +29,16 @@ interface IDefaultRangeProps {
 
 interface IRangleFilterProps<T extends FieldValues> {
   label: string;
-  options: IOptionsProps[];
-  form: UseFormReturn<T>;
-  schema_min: Path<T>;
-  schema_max: Path<T>;
-  schema_range: Path<T>;
+  options: IOptionsProps[]; //list filter
+  form: UseFormReturn<T>; // pass form react hook form
+  schema_min: Path<T>; //min value
+  schema_max: Path<T>; //max value
+  schema_range: Path<T>; //range
   defaultRange: IDefaultRangeProps;
   onChange?: (value: T) => void;
-  unit: 'price' | 'size';
-  minValueLabel?: string;
-  maxValueLabel?: string;
+  unit: 'price' | 'size'; //interface to convert, will maintain later
+  minValueLabel?: string; //min value show default
+  maxValueLabel?: string; //max value show default
 }
 
 const RangeFilter = <T extends FieldValues>(props: IRangleFilterProps<T>) => {

@@ -7,10 +7,12 @@ const userSchema = zod.object({
   phone: zod
     .string()
     .optional()
-    .refine((value) => !value || /^[0-9]+$/.test(value), { message: 'Số điện thoại không đúng định dạng' })
+    .refine((value) => !value || /^[0-9]+$/.test(value), { message: 'Số điện thoại không đúng định dạng' }),
   // .refine(async (e) => {
   // return await checkIfEmailIsValid(e);
-  // }, 'This email is not in our database')
+  // }, 'This email is not in our database'),
+  balance: zod.number().optional(),
+  score: zod.number().optional()
 });
 
 export default userSchema;
