@@ -73,6 +73,27 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) var(--primary);
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: var(--primary);
+    border-radius: 5px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--secondary);
+    border-radius: 14px;
+    border: 3px solid var(--primary);
+  }
 }
 
 @layer components {
@@ -100,6 +121,7 @@
     background-color: #f5f5f4;
   }
 }
+
 html {
   font-family: 'Questrial', sans-serif;
 }

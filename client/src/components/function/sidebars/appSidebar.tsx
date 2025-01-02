@@ -23,7 +23,6 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { open } = useSidebar();
-  console.log('open', open);
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
